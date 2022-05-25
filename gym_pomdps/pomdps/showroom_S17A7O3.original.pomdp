@@ -1,0 +1,403 @@
+discount : 0.99
+
+values: reward
+
+states: rBedroom_pBedroom_Negative_Negative rBedroom_pBedroom_Negative_Positive rBedroom_pBedroom_Positive_Negative rBedroom_pBedroom_Positive_Positive rBedroom_pKitchen_Negative_Negative rBedroom_pKitchen_Negative_Positive rBedroom_pKitchen_Positive_Negative rBedroom_pKitchen_Positive_Positive rKitchen_pBedroom_Negative_Negative rKitchen_pBedroom_Negative_Positive rKitchen_pBedroom_Positive_Negative rKitchen_pBedroom_Positive_Positive rKitchen_pKitchen_Negative_Negative rKitchen_pKitchen_Negative_Positive rKitchen_pKitchen_Positive_Negative rKitchen_pKitchen_Positive_Positive terminal 
+
+actions: MoveToBedroom MoveToKitchen InformBedroom InformKitchen AskBedroom AskKitchen Report 
+
+observations: Negative Positive Nan 
+
+start exclude: terminal
+
+T: MoveToBedroom
+1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
+
+
+T: MoveToKitchen
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
+
+
+T: InformBedroom
+0.5 0.0 0.5 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.5 0.0 0.5 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.9 0.0 0.09999999999999998 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.9 0.0 0.09999999999999998 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
+
+
+T: InformKitchen
+0.9 0.09999999999999998 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.9 0.09999999999999998 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.5 0.5 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.5 0.5 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
+
+
+T: AskBedroom
+1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
+
+
+T: AskKitchen
+1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
+
+
+T: Report
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
+
+O: MoveToBedroom
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+
+O: MoveToKitchen
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+
+O: InformBedroom
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+
+O: InformKitchen
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+
+O: AskBedroom
+0.9 0.1 0.0 
+0.9 0.1 0.0 
+0.1 0.9 0.0 
+0.1 0.9 0.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+
+O: AskKitchen
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.9 0.1 0.0 
+0.1 0.9 0.0 
+0.9 0.1 0.0 
+0.1 0.9 0.0 
+0.0 0.0 1.0 
+
+O: Report
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
+
+R: MoveToBedroom		: rBedroom_pBedroom_Negative_Negative	: *		: * -0.1
+R: MoveToBedroom		: rBedroom_pBedroom_Negative_Positive	: *		: * -0.1
+R: MoveToBedroom		: rBedroom_pBedroom_Positive_Negative	: *		: * -0.1
+R: MoveToBedroom		: rBedroom_pBedroom_Positive_Positive	: *		: * -0.1
+R: MoveToBedroom		: rBedroom_pKitchen_Negative_Negative	: *		: * -0.1
+R: MoveToBedroom		: rBedroom_pKitchen_Negative_Positive	: *		: * -0.1
+R: MoveToBedroom		: rBedroom_pKitchen_Positive_Negative	: *		: * -0.1
+R: MoveToBedroom		: rBedroom_pKitchen_Positive_Positive	: *		: * -0.1
+R: MoveToBedroom		: rKitchen_pBedroom_Negative_Negative	: *		: * -0.1
+R: MoveToBedroom		: rKitchen_pBedroom_Negative_Positive	: *		: * -0.1
+R: MoveToBedroom		: rKitchen_pBedroom_Positive_Negative	: *		: * -0.1
+R: MoveToBedroom		: rKitchen_pBedroom_Positive_Positive	: *		: * -0.1
+R: MoveToBedroom		: rKitchen_pKitchen_Negative_Negative	: *		: * -0.1
+R: MoveToBedroom		: rKitchen_pKitchen_Negative_Positive	: *		: * -0.1
+R: MoveToBedroom		: rKitchen_pKitchen_Positive_Negative	: *		: * -0.1
+R: MoveToBedroom		: rKitchen_pKitchen_Positive_Positive	: *		: * -0.1
+R: MoveToBedroom		: terminal	: *		: * 0.0
+R: MoveToKitchen		: rBedroom_pBedroom_Negative_Negative	: *		: * -0.1
+R: MoveToKitchen		: rBedroom_pBedroom_Negative_Positive	: *		: * -0.1
+R: MoveToKitchen		: rBedroom_pBedroom_Positive_Negative	: *		: * -0.1
+R: MoveToKitchen		: rBedroom_pBedroom_Positive_Positive	: *		: * -0.1
+R: MoveToKitchen		: rBedroom_pKitchen_Negative_Negative	: *		: * -0.1
+R: MoveToKitchen		: rBedroom_pKitchen_Negative_Positive	: *		: * -0.1
+R: MoveToKitchen		: rBedroom_pKitchen_Positive_Negative	: *		: * -0.1
+R: MoveToKitchen		: rBedroom_pKitchen_Positive_Positive	: *		: * -0.1
+R: MoveToKitchen		: rKitchen_pBedroom_Negative_Negative	: *		: * -0.1
+R: MoveToKitchen		: rKitchen_pBedroom_Negative_Positive	: *		: * -0.1
+R: MoveToKitchen		: rKitchen_pBedroom_Positive_Negative	: *		: * -0.1
+R: MoveToKitchen		: rKitchen_pBedroom_Positive_Positive	: *		: * -0.1
+R: MoveToKitchen		: rKitchen_pKitchen_Negative_Negative	: *		: * -0.1
+R: MoveToKitchen		: rKitchen_pKitchen_Negative_Positive	: *		: * -0.1
+R: MoveToKitchen		: rKitchen_pKitchen_Positive_Negative	: *		: * -0.1
+R: MoveToKitchen		: rKitchen_pKitchen_Positive_Positive	: *		: * -0.1
+R: MoveToKitchen		: terminal	: *		: * 0.0
+R: InformBedroom		: rBedroom_pBedroom_Negative_Negative	: *		: * -0.1
+R: InformBedroom		: rBedroom_pBedroom_Negative_Positive	: *		: * -0.1
+R: InformBedroom		: rBedroom_pBedroom_Positive_Negative	: *		: * -0.1
+R: InformBedroom		: rBedroom_pBedroom_Positive_Positive	: *		: * -0.1
+R: InformBedroom		: rBedroom_pKitchen_Negative_Negative	: *		: * -0.1
+R: InformBedroom		: rBedroom_pKitchen_Negative_Positive	: *		: * -0.1
+R: InformBedroom		: rBedroom_pKitchen_Positive_Negative	: *		: * -0.1
+R: InformBedroom		: rBedroom_pKitchen_Positive_Positive	: *		: * -0.1
+R: InformBedroom		: rKitchen_pBedroom_Negative_Negative	: *		: * -0.1
+R: InformBedroom		: rKitchen_pBedroom_Negative_Positive	: *		: * -0.1
+R: InformBedroom		: rKitchen_pBedroom_Positive_Negative	: *		: * -0.1
+R: InformBedroom		: rKitchen_pBedroom_Positive_Positive	: *		: * -0.1
+R: InformBedroom		: rKitchen_pKitchen_Negative_Negative	: *		: * -0.1
+R: InformBedroom		: rKitchen_pKitchen_Negative_Positive	: *		: * -0.1
+R: InformBedroom		: rKitchen_pKitchen_Positive_Negative	: *		: * -0.1
+R: InformBedroom		: rKitchen_pKitchen_Positive_Positive	: *		: * -0.1
+R: InformBedroom		: terminal	: *		: * 0.0
+R: InformKitchen		: rBedroom_pBedroom_Negative_Negative	: *		: * -0.1
+R: InformKitchen		: rBedroom_pBedroom_Negative_Positive	: *		: * -0.1
+R: InformKitchen		: rBedroom_pBedroom_Positive_Negative	: *		: * -0.1
+R: InformKitchen		: rBedroom_pBedroom_Positive_Positive	: *		: * -0.1
+R: InformKitchen		: rBedroom_pKitchen_Negative_Negative	: *		: * -0.1
+R: InformKitchen		: rBedroom_pKitchen_Negative_Positive	: *		: * -0.1
+R: InformKitchen		: rBedroom_pKitchen_Positive_Negative	: *		: * -0.1
+R: InformKitchen		: rBedroom_pKitchen_Positive_Positive	: *		: * -0.1
+R: InformKitchen		: rKitchen_pBedroom_Negative_Negative	: *		: * -0.1
+R: InformKitchen		: rKitchen_pBedroom_Negative_Positive	: *		: * -0.1
+R: InformKitchen		: rKitchen_pBedroom_Positive_Negative	: *		: * -0.1
+R: InformKitchen		: rKitchen_pBedroom_Positive_Positive	: *		: * -0.1
+R: InformKitchen		: rKitchen_pKitchen_Negative_Negative	: *		: * -0.1
+R: InformKitchen		: rKitchen_pKitchen_Negative_Positive	: *		: * -0.1
+R: InformKitchen		: rKitchen_pKitchen_Positive_Negative	: *		: * -0.1
+R: InformKitchen		: rKitchen_pKitchen_Positive_Positive	: *		: * -0.1
+R: InformKitchen		: terminal	: *		: * 0.0
+R: AskBedroom		: rBedroom_pBedroom_Negative_Negative	: *		: * -0.1
+R: AskBedroom		: rBedroom_pBedroom_Negative_Positive	: *		: * -0.1
+R: AskBedroom		: rBedroom_pBedroom_Positive_Negative	: *		: * -0.1
+R: AskBedroom		: rBedroom_pBedroom_Positive_Positive	: *		: * -0.1
+R: AskBedroom		: rBedroom_pKitchen_Negative_Negative	: *		: * -0.1
+R: AskBedroom		: rBedroom_pKitchen_Negative_Positive	: *		: * -0.1
+R: AskBedroom		: rBedroom_pKitchen_Positive_Negative	: *		: * -0.1
+R: AskBedroom		: rBedroom_pKitchen_Positive_Positive	: *		: * -0.1
+R: AskBedroom		: rKitchen_pBedroom_Negative_Negative	: *		: * -0.1
+R: AskBedroom		: rKitchen_pBedroom_Negative_Positive	: *		: * -0.1
+R: AskBedroom		: rKitchen_pBedroom_Positive_Negative	: *		: * -0.1
+R: AskBedroom		: rKitchen_pBedroom_Positive_Positive	: *		: * -0.1
+R: AskBedroom		: rKitchen_pKitchen_Negative_Negative	: *		: * -0.1
+R: AskBedroom		: rKitchen_pKitchen_Negative_Positive	: *		: * -0.1
+R: AskBedroom		: rKitchen_pKitchen_Positive_Negative	: *		: * -0.1
+R: AskBedroom		: rKitchen_pKitchen_Positive_Positive	: *		: * -0.1
+R: AskBedroom		: terminal	: *		: * 0.0
+R: AskKitchen		: rBedroom_pBedroom_Negative_Negative	: *		: * -0.1
+R: AskKitchen		: rBedroom_pBedroom_Negative_Positive	: *		: * -0.1
+R: AskKitchen		: rBedroom_pBedroom_Positive_Negative	: *		: * -0.1
+R: AskKitchen		: rBedroom_pBedroom_Positive_Positive	: *		: * -0.1
+R: AskKitchen		: rBedroom_pKitchen_Negative_Negative	: *		: * -0.1
+R: AskKitchen		: rBedroom_pKitchen_Negative_Positive	: *		: * -0.1
+R: AskKitchen		: rBedroom_pKitchen_Positive_Negative	: *		: * -0.1
+R: AskKitchen		: rBedroom_pKitchen_Positive_Positive	: *		: * -0.1
+R: AskKitchen		: rKitchen_pBedroom_Negative_Negative	: *		: * -0.1
+R: AskKitchen		: rKitchen_pBedroom_Negative_Positive	: *		: * -0.1
+R: AskKitchen		: rKitchen_pBedroom_Positive_Negative	: *		: * -0.1
+R: AskKitchen		: rKitchen_pBedroom_Positive_Positive	: *		: * -0.1
+R: AskKitchen		: rKitchen_pKitchen_Negative_Negative	: *		: * -0.1
+R: AskKitchen		: rKitchen_pKitchen_Negative_Positive	: *		: * -0.1
+R: AskKitchen		: rKitchen_pKitchen_Positive_Negative	: *		: * -0.1
+R: AskKitchen		: rKitchen_pKitchen_Positive_Positive	: *		: * -0.1
+R: AskKitchen		: terminal	: *		: * 0.0
+R: Report		: rBedroom_pBedroom_Negative_Negative	: *		: * -1.0
+R: Report		: rBedroom_pBedroom_Negative_Positive	: *		: * -1.0
+R: Report		: rBedroom_pBedroom_Positive_Negative	: *		: * -1.0
+R: Report		: rBedroom_pBedroom_Positive_Positive	: *		: * 1.0
+R: Report		: rBedroom_pKitchen_Negative_Negative	: *		: * -1.0
+R: Report		: rBedroom_pKitchen_Negative_Positive	: *		: * -1.0
+R: Report		: rBedroom_pKitchen_Positive_Negative	: *		: * -1.0
+R: Report		: rBedroom_pKitchen_Positive_Positive	: *		: * 1.0
+R: Report		: rKitchen_pBedroom_Negative_Negative	: *		: * -1.0
+R: Report		: rKitchen_pBedroom_Negative_Positive	: *		: * -1.0
+R: Report		: rKitchen_pBedroom_Positive_Negative	: *		: * -1.0
+R: Report		: rKitchen_pBedroom_Positive_Positive	: *		: * 1.0
+R: Report		: rKitchen_pKitchen_Negative_Negative	: *		: * -1.0
+R: Report		: rKitchen_pKitchen_Negative_Positive	: *		: * -1.0
+R: Report		: rKitchen_pKitchen_Positive_Negative	: *		: * -1.0
+R: Report		: rKitchen_pKitchen_Positive_Positive	: *		: * 1.0
+R: Report		: terminal	: *		: * 0.0

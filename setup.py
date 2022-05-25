@@ -6,7 +6,7 @@ with open('requirements.txt') as requirements_file:
 
 setup(
     name='gym-pomdps',
-    version='1.0.0',
+    version='1.0.1',
     description='Gym flat POMDP environments',
     author='Andrea Baisero',
     author_email='andrea.baisero@gmail.com',
