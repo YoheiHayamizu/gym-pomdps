@@ -4,9 +4,9 @@ values: reward
 
 states: rR0_pR0_neg_neg rR0_pR0_neg_pos rR0_pR0_pos_neg rR0_pR0_pos_pos rR0_pR1_neg_neg rR0_pR1_neg_pos rR0_pR1_pos_neg rR0_pR1_pos_pos rR1_pR0_neg_neg rR1_pR0_neg_pos rR1_pR0_pos_neg rR1_pR0_pos_pos rR1_pR1_neg_neg rR1_pR1_neg_pos rR1_pR1_pos_neg rR1_pR1_pos_pos 
 
-actions: MoveToR0 MoveToR1 InformR0 InformR1 AskR0 AskR1 Report
+actions: Report MoveToR0 MoveToR1 InformR0 InformR1 AskR0 AskR1 
 
-observations: neg pos nan 
+observations: nan neg pos  
 
 start include: rR0_pR0_neg_neg rR0_pR0_neg_pos rR0_pR0_pos_neg rR0_pR0_pos_pos rR0_pR1_neg_neg rR0_pR1_neg_pos rR0_pR1_pos_neg rR0_pR1_pos_pos rR1_pR0_neg_neg rR1_pR0_neg_pos rR1_pR0_pos_neg rR1_pR0_pos_pos rR1_pR1_neg_neg rR1_pR1_neg_pos rR1_pR1_pos_neg rR1_pR1_pos_pos 
 
@@ -66,8 +66,8 @@ T: MoveToR1
 
 
 T: InformR0
-0.1 0.0 0.9 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
-0.0 0.1 0.0 0.9 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
@@ -97,9 +97,9 @@ T: InformR1
 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 
 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0 
 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 
-0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.1 0.9 0.0 0.0 
 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 
-0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.1 0.9 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0 
 
 
@@ -231,10 +231,10 @@ O: InformR1
 1.0 0.0 0.0 
 
 O: AskR0
-0.0 0.9 0.1 
-0.0 0.9 0.1 
-0.0 0.1 0.9 
-0.0 0.1 0.9 
+0.0 1.0 0.0 
+0.0 1.0 0.0 
+0.0 0.0 1.0 
+0.0 0.0 1.0 
 1.0 0.0 0.0 
 1.0 0.0 0.0 
 1.0 0.0 0.0 
@@ -261,10 +261,10 @@ O: AskR1
 1.0 0.0 0.0 
 1.0 0.0 0.0 
 1.0 0.0 0.0 
-0.0 0.9 0.1 
-0.0 0.1 0.9 
-0.0 0.9 0.1 
-0.0 0.1 0.9 
+0.0 1.0 0.0 
+0.0 0.0 1.0 
+0.0 1.0 0.0 
+0.0 0.0 1.0 
 
 R: Report		: rR0_pR0_neg_neg	: *		: * -1.0
 R: Report		: rR0_pR0_neg_pos	: *		: * -1.0
