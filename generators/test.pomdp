@@ -1,0 +1,1984 @@
+# Showroom Environment without noise;
+#
+# The agent navigates a house with n rooms being tasked with the goal of convincing a human 
+# to have interests in all rooms. the human follows the agent and will be convinced only 
+# when they are at the same room. Observations regarding the human's interests in rooms can be
+# obtained and should ideally be memorized during navigation. 
+#
+# State-space (n * n * 2 ** n) : position of the agent in the house (n rooms), 
+# position of the human in the house (n rooms), and proposition of the human interests 
+# in each room (2 ** n).
+# Action-space (6) : movements {goto_r(n)}, query info on a human interest {`ask_r(n)`}, 
+# inform info to the human {`inform_r(n)`} and report to terminate a trial in current
+# room {`report`}.
+#
+# Observation-space (3) : No information or no feedback from the human `nan`, 
+# a negative feedback `neg`, and a positive feedback `pos`.
+#
+# This specific file was generated with parameters:
+# Namespace(gamma=0.99, n=3, symbolic=True)
+
+discount: 0.99
+
+values: reward
+
+# states: 72
+states: agent_r0_human_r0_neg_neg_neg agent_r0_human_r0_neg_neg_pos agent_r0_human_r0_neg_pos_neg agent_r0_human_r0_neg_pos_pos agent_r0_human_r0_pos_neg_neg agent_r0_human_r0_pos_neg_pos agent_r0_human_r0_pos_pos_neg agent_r0_human_r0_pos_pos_pos agent_r0_human_r1_neg_neg_neg agent_r0_human_r1_neg_neg_pos agent_r0_human_r1_neg_pos_neg agent_r0_human_r1_neg_pos_pos agent_r0_human_r1_pos_neg_neg agent_r0_human_r1_pos_neg_pos agent_r0_human_r1_pos_pos_neg agent_r0_human_r1_pos_pos_pos agent_r0_human_r2_neg_neg_neg agent_r0_human_r2_neg_neg_pos agent_r0_human_r2_neg_pos_neg agent_r0_human_r2_neg_pos_pos agent_r0_human_r2_pos_neg_neg agent_r0_human_r2_pos_neg_pos agent_r0_human_r2_pos_pos_neg agent_r0_human_r2_pos_pos_pos agent_r1_human_r0_neg_neg_neg agent_r1_human_r0_neg_neg_pos agent_r1_human_r0_neg_pos_neg agent_r1_human_r0_neg_pos_pos agent_r1_human_r0_pos_neg_neg agent_r1_human_r0_pos_neg_pos agent_r1_human_r0_pos_pos_neg agent_r1_human_r0_pos_pos_pos agent_r1_human_r1_neg_neg_neg agent_r1_human_r1_neg_neg_pos agent_r1_human_r1_neg_pos_neg agent_r1_human_r1_neg_pos_pos agent_r1_human_r1_pos_neg_neg agent_r1_human_r1_pos_neg_pos agent_r1_human_r1_pos_pos_neg agent_r1_human_r1_pos_pos_pos agent_r1_human_r2_neg_neg_neg agent_r1_human_r2_neg_neg_pos agent_r1_human_r2_neg_pos_neg agent_r1_human_r2_neg_pos_pos agent_r1_human_r2_pos_neg_neg agent_r1_human_r2_pos_neg_pos agent_r1_human_r2_pos_pos_neg agent_r1_human_r2_pos_pos_pos agent_r2_human_r0_neg_neg_neg agent_r2_human_r0_neg_neg_pos agent_r2_human_r0_neg_pos_neg agent_r2_human_r0_neg_pos_pos agent_r2_human_r0_pos_neg_neg agent_r2_human_r0_pos_neg_pos agent_r2_human_r0_pos_pos_neg agent_r2_human_r0_pos_pos_pos agent_r2_human_r1_neg_neg_neg agent_r2_human_r1_neg_neg_pos agent_r2_human_r1_neg_pos_neg agent_r2_human_r1_neg_pos_pos agent_r2_human_r1_pos_neg_neg agent_r2_human_r1_pos_neg_pos agent_r2_human_r1_pos_pos_neg agent_r2_human_r1_pos_pos_pos agent_r2_human_r2_neg_neg_neg agent_r2_human_r2_neg_neg_pos agent_r2_human_r2_neg_pos_neg agent_r2_human_r2_neg_pos_pos agent_r2_human_r2_pos_neg_neg agent_r2_human_r2_pos_neg_pos agent_r2_human_r2_pos_pos_neg agent_r2_human_r2_pos_pos_pos
+
+# actions: 10
+actions: report goto_r0 goto_r1 goto_r2 inform_r0 inform_r1 inform_r2 ask_r0 ask_r1 ask_r2
+
+# observations: 3
+observations: nan neg pos
+
+start include: agent_r0_human_r0_neg_neg_neg agent_r0_human_r0_neg_neg_pos agent_r0_human_r0_neg_pos_neg agent_r0_human_r0_neg_pos_pos agent_r0_human_r0_pos_neg_neg agent_r0_human_r0_pos_neg_pos agent_r0_human_r0_pos_pos_neg agent_r0_human_r0_pos_pos_pos agent_r0_human_r1_neg_neg_neg agent_r0_human_r1_neg_neg_pos agent_r0_human_r1_neg_pos_neg agent_r0_human_r1_neg_pos_pos agent_r0_human_r1_pos_neg_neg agent_r0_human_r1_pos_neg_pos agent_r0_human_r1_pos_pos_neg agent_r0_human_r1_pos_pos_pos agent_r0_human_r2_neg_neg_neg agent_r0_human_r2_neg_neg_pos agent_r0_human_r2_neg_pos_neg agent_r0_human_r2_neg_pos_pos agent_r0_human_r2_pos_neg_neg agent_r0_human_r2_pos_neg_pos agent_r0_human_r2_pos_pos_neg agent_r0_human_r2_pos_pos_pos agent_r1_human_r0_neg_neg_neg agent_r1_human_r0_neg_neg_pos agent_r1_human_r0_neg_pos_neg agent_r1_human_r0_neg_pos_pos agent_r1_human_r0_pos_neg_neg agent_r1_human_r0_pos_neg_pos agent_r1_human_r0_pos_pos_neg agent_r1_human_r0_pos_pos_pos agent_r1_human_r1_neg_neg_neg agent_r1_human_r1_neg_neg_pos agent_r1_human_r1_neg_pos_neg agent_r1_human_r1_neg_pos_pos agent_r1_human_r1_pos_neg_neg agent_r1_human_r1_pos_neg_pos agent_r1_human_r1_pos_pos_neg agent_r1_human_r1_pos_pos_pos agent_r1_human_r2_neg_neg_neg agent_r1_human_r2_neg_neg_pos agent_r1_human_r2_neg_pos_neg agent_r1_human_r2_neg_pos_pos agent_r1_human_r2_pos_neg_neg agent_r1_human_r2_pos_neg_pos agent_r1_human_r2_pos_pos_neg agent_r1_human_r2_pos_pos_pos agent_r2_human_r0_neg_neg_neg agent_r2_human_r0_neg_neg_pos agent_r2_human_r0_neg_pos_neg agent_r2_human_r0_neg_pos_pos agent_r2_human_r0_pos_neg_neg agent_r2_human_r0_pos_neg_pos agent_r2_human_r0_pos_pos_neg agent_r2_human_r0_pos_pos_pos agent_r2_human_r1_neg_neg_neg agent_r2_human_r1_neg_neg_pos agent_r2_human_r1_neg_pos_neg agent_r2_human_r1_neg_pos_pos agent_r2_human_r1_pos_neg_neg agent_r2_human_r1_pos_neg_pos agent_r2_human_r1_pos_pos_neg agent_r2_human_r1_pos_pos_pos agent_r2_human_r2_neg_neg_neg agent_r2_human_r2_neg_neg_pos agent_r2_human_r2_neg_pos_neg agent_r2_human_r2_neg_pos_pos agent_r2_human_r2_pos_neg_neg agent_r2_human_r2_pos_neg_pos agent_r2_human_r2_pos_pos_neg agent_r2_human_r2_pos_pos_pos
+
+T: 	report: 	agent_r0_human_r0_neg_neg_neg 	reset
+T: 	report: 	agent_r0_human_r0_neg_neg_pos 	reset
+T: 	report: 	agent_r0_human_r0_neg_pos_neg 	reset
+T: 	report: 	agent_r0_human_r0_neg_pos_pos 	reset
+T: 	report: 	agent_r0_human_r0_pos_neg_neg 	reset
+T: 	report: 	agent_r0_human_r0_pos_neg_pos 	reset
+T: 	report: 	agent_r0_human_r0_pos_pos_neg 	reset
+T: 	report: 	agent_r0_human_r0_pos_pos_pos 	reset
+T: 	report: 	agent_r0_human_r1_neg_neg_neg 	reset
+T: 	report: 	agent_r0_human_r1_neg_neg_pos 	reset
+T: 	report: 	agent_r0_human_r1_neg_pos_neg 	reset
+T: 	report: 	agent_r0_human_r1_neg_pos_pos 	reset
+T: 	report: 	agent_r0_human_r1_pos_neg_neg 	reset
+T: 	report: 	agent_r0_human_r1_pos_neg_pos 	reset
+T: 	report: 	agent_r0_human_r1_pos_pos_neg 	reset
+T: 	report: 	agent_r0_human_r1_pos_pos_pos 	reset
+T: 	report: 	agent_r0_human_r2_neg_neg_neg 	reset
+T: 	report: 	agent_r0_human_r2_neg_neg_pos 	reset
+T: 	report: 	agent_r0_human_r2_neg_pos_neg 	reset
+T: 	report: 	agent_r0_human_r2_neg_pos_pos 	reset
+T: 	report: 	agent_r0_human_r2_pos_neg_neg 	reset
+T: 	report: 	agent_r0_human_r2_pos_neg_pos 	reset
+T: 	report: 	agent_r0_human_r2_pos_pos_neg 	reset
+T: 	report: 	agent_r0_human_r2_pos_pos_pos 	reset
+T: 	report: 	agent_r1_human_r0_neg_neg_neg 	reset
+T: 	report: 	agent_r1_human_r0_neg_neg_pos 	reset
+T: 	report: 	agent_r1_human_r0_neg_pos_neg 	reset
+T: 	report: 	agent_r1_human_r0_neg_pos_pos 	reset
+T: 	report: 	agent_r1_human_r0_pos_neg_neg 	reset
+T: 	report: 	agent_r1_human_r0_pos_neg_pos 	reset
+T: 	report: 	agent_r1_human_r0_pos_pos_neg 	reset
+T: 	report: 	agent_r1_human_r0_pos_pos_pos 	reset
+T: 	report: 	agent_r1_human_r1_neg_neg_neg 	reset
+T: 	report: 	agent_r1_human_r1_neg_neg_pos 	reset
+T: 	report: 	agent_r1_human_r1_neg_pos_neg 	reset
+T: 	report: 	agent_r1_human_r1_neg_pos_pos 	reset
+T: 	report: 	agent_r1_human_r1_pos_neg_neg 	reset
+T: 	report: 	agent_r1_human_r1_pos_neg_pos 	reset
+T: 	report: 	agent_r1_human_r1_pos_pos_neg 	reset
+T: 	report: 	agent_r1_human_r1_pos_pos_pos 	reset
+T: 	report: 	agent_r1_human_r2_neg_neg_neg 	reset
+T: 	report: 	agent_r1_human_r2_neg_neg_pos 	reset
+T: 	report: 	agent_r1_human_r2_neg_pos_neg 	reset
+T: 	report: 	agent_r1_human_r2_neg_pos_pos 	reset
+T: 	report: 	agent_r1_human_r2_pos_neg_neg 	reset
+T: 	report: 	agent_r1_human_r2_pos_neg_pos 	reset
+T: 	report: 	agent_r1_human_r2_pos_pos_neg 	reset
+T: 	report: 	agent_r1_human_r2_pos_pos_pos 	reset
+T: 	report: 	agent_r2_human_r0_neg_neg_neg 	reset
+T: 	report: 	agent_r2_human_r0_neg_neg_pos 	reset
+T: 	report: 	agent_r2_human_r0_neg_pos_neg 	reset
+T: 	report: 	agent_r2_human_r0_neg_pos_pos 	reset
+T: 	report: 	agent_r2_human_r0_pos_neg_neg 	reset
+T: 	report: 	agent_r2_human_r0_pos_neg_pos 	reset
+T: 	report: 	agent_r2_human_r0_pos_pos_neg 	reset
+T: 	report: 	agent_r2_human_r0_pos_pos_pos 	reset
+T: 	report: 	agent_r2_human_r1_neg_neg_neg 	reset
+T: 	report: 	agent_r2_human_r1_neg_neg_pos 	reset
+T: 	report: 	agent_r2_human_r1_neg_pos_neg 	reset
+T: 	report: 	agent_r2_human_r1_neg_pos_pos 	reset
+T: 	report: 	agent_r2_human_r1_pos_neg_neg 	reset
+T: 	report: 	agent_r2_human_r1_pos_neg_pos 	reset
+T: 	report: 	agent_r2_human_r1_pos_pos_neg 	reset
+T: 	report: 	agent_r2_human_r1_pos_pos_pos 	reset
+T: 	report: 	agent_r2_human_r2_neg_neg_neg 	reset
+T: 	report: 	agent_r2_human_r2_neg_neg_pos 	reset
+T: 	report: 	agent_r2_human_r2_neg_pos_neg 	reset
+T: 	report: 	agent_r2_human_r2_neg_pos_pos 	reset
+T: 	report: 	agent_r2_human_r2_pos_neg_neg 	reset
+T: 	report: 	agent_r2_human_r2_pos_neg_pos 	reset
+T: 	report: 	agent_r2_human_r2_pos_pos_neg 	reset
+T: 	report: 	agent_r2_human_r2_pos_pos_pos 	reset
+T: 	goto_r0: 	agent_r0_human_r0_neg_neg_neg: 	agent_r0_human_r0_neg_neg_neg 	1.0
+T: 	goto_r0: 	agent_r0_human_r0_neg_neg_pos: 	agent_r0_human_r0_neg_neg_pos 	1.0
+T: 	goto_r0: 	agent_r0_human_r0_neg_pos_neg: 	agent_r0_human_r0_neg_pos_neg 	1.0
+T: 	goto_r0: 	agent_r0_human_r0_neg_pos_pos: 	agent_r0_human_r0_neg_pos_pos 	1.0
+T: 	goto_r0: 	agent_r0_human_r0_pos_neg_neg: 	agent_r0_human_r0_pos_neg_neg 	1.0
+T: 	goto_r0: 	agent_r0_human_r0_pos_neg_pos: 	agent_r0_human_r0_pos_neg_pos 	1.0
+T: 	goto_r0: 	agent_r0_human_r0_pos_pos_neg: 	agent_r0_human_r0_pos_pos_neg 	1.0
+T: 	goto_r0: 	agent_r0_human_r0_pos_pos_pos: 	agent_r0_human_r0_pos_pos_pos 	1.0
+T: 	goto_r0: 	agent_r0_human_r1_neg_neg_neg: 	agent_r0_human_r1_neg_neg_neg 	1.0
+T: 	goto_r0: 	agent_r0_human_r1_neg_neg_pos: 	agent_r0_human_r1_neg_neg_pos 	1.0
+T: 	goto_r0: 	agent_r0_human_r1_neg_pos_neg: 	agent_r0_human_r1_neg_pos_neg 	1.0
+T: 	goto_r0: 	agent_r0_human_r1_neg_pos_pos: 	agent_r0_human_r1_neg_pos_pos 	1.0
+T: 	goto_r0: 	agent_r0_human_r1_pos_neg_neg: 	agent_r0_human_r1_pos_neg_neg 	1.0
+T: 	goto_r0: 	agent_r0_human_r1_pos_neg_pos: 	agent_r0_human_r1_pos_neg_pos 	1.0
+T: 	goto_r0: 	agent_r0_human_r1_pos_pos_neg: 	agent_r0_human_r1_pos_pos_neg 	1.0
+T: 	goto_r0: 	agent_r0_human_r1_pos_pos_pos: 	agent_r0_human_r1_pos_pos_pos 	1.0
+T: 	goto_r0: 	agent_r0_human_r2_neg_neg_neg: 	agent_r0_human_r2_neg_neg_neg 	1.0
+T: 	goto_r0: 	agent_r0_human_r2_neg_neg_pos: 	agent_r0_human_r2_neg_neg_pos 	1.0
+T: 	goto_r0: 	agent_r0_human_r2_neg_pos_neg: 	agent_r0_human_r2_neg_pos_neg 	1.0
+T: 	goto_r0: 	agent_r0_human_r2_neg_pos_pos: 	agent_r0_human_r2_neg_pos_pos 	1.0
+T: 	goto_r0: 	agent_r0_human_r2_pos_neg_neg: 	agent_r0_human_r2_pos_neg_neg 	1.0
+T: 	goto_r0: 	agent_r0_human_r2_pos_neg_pos: 	agent_r0_human_r2_pos_neg_pos 	1.0
+T: 	goto_r0: 	agent_r0_human_r2_pos_pos_neg: 	agent_r0_human_r2_pos_pos_neg 	1.0
+T: 	goto_r0: 	agent_r0_human_r2_pos_pos_pos: 	agent_r0_human_r2_pos_pos_pos 	1.0
+T: 	goto_r0: 	agent_r1_human_r0_neg_neg_neg: 	agent_r0_human_r0_neg_neg_neg 	1.0
+T: 	goto_r0: 	agent_r1_human_r0_neg_neg_pos: 	agent_r0_human_r0_neg_neg_pos 	1.0
+T: 	goto_r0: 	agent_r1_human_r0_neg_pos_neg: 	agent_r0_human_r0_neg_pos_neg 	1.0
+T: 	goto_r0: 	agent_r1_human_r0_neg_pos_pos: 	agent_r0_human_r0_neg_pos_pos 	1.0
+T: 	goto_r0: 	agent_r1_human_r0_pos_neg_neg: 	agent_r0_human_r0_pos_neg_neg 	1.0
+T: 	goto_r0: 	agent_r1_human_r0_pos_neg_pos: 	agent_r0_human_r0_pos_neg_pos 	1.0
+T: 	goto_r0: 	agent_r1_human_r0_pos_pos_neg: 	agent_r0_human_r0_pos_pos_neg 	1.0
+T: 	goto_r0: 	agent_r1_human_r0_pos_pos_pos: 	agent_r0_human_r0_pos_pos_pos 	1.0
+T: 	goto_r0: 	agent_r1_human_r1_neg_neg_neg: 	agent_r0_human_r0_neg_neg_neg 	1.0
+T: 	goto_r0: 	agent_r1_human_r1_neg_neg_pos: 	agent_r0_human_r0_neg_neg_pos 	1.0
+T: 	goto_r0: 	agent_r1_human_r1_neg_pos_neg: 	agent_r0_human_r0_neg_pos_neg 	1.0
+T: 	goto_r0: 	agent_r1_human_r1_neg_pos_pos: 	agent_r0_human_r0_neg_pos_pos 	1.0
+T: 	goto_r0: 	agent_r1_human_r1_pos_neg_neg: 	agent_r0_human_r0_pos_neg_neg 	1.0
+T: 	goto_r0: 	agent_r1_human_r1_pos_neg_pos: 	agent_r0_human_r0_pos_neg_pos 	1.0
+T: 	goto_r0: 	agent_r1_human_r1_pos_pos_neg: 	agent_r0_human_r0_pos_pos_neg 	1.0
+T: 	goto_r0: 	agent_r1_human_r1_pos_pos_pos: 	agent_r0_human_r0_pos_pos_pos 	1.0
+T: 	goto_r0: 	agent_r1_human_r2_neg_neg_neg: 	agent_r0_human_r2_neg_neg_neg 	1.0
+T: 	goto_r0: 	agent_r1_human_r2_neg_neg_pos: 	agent_r0_human_r2_neg_neg_pos 	1.0
+T: 	goto_r0: 	agent_r1_human_r2_neg_pos_neg: 	agent_r0_human_r2_neg_pos_neg 	1.0
+T: 	goto_r0: 	agent_r1_human_r2_neg_pos_pos: 	agent_r0_human_r2_neg_pos_pos 	1.0
+T: 	goto_r0: 	agent_r1_human_r2_pos_neg_neg: 	agent_r0_human_r2_pos_neg_neg 	1.0
+T: 	goto_r0: 	agent_r1_human_r2_pos_neg_pos: 	agent_r0_human_r2_pos_neg_pos 	1.0
+T: 	goto_r0: 	agent_r1_human_r2_pos_pos_neg: 	agent_r0_human_r2_pos_pos_neg 	1.0
+T: 	goto_r0: 	agent_r1_human_r2_pos_pos_pos: 	agent_r0_human_r2_pos_pos_pos 	1.0
+T: 	goto_r0: 	agent_r2_human_r0_neg_neg_neg: 	agent_r0_human_r0_neg_neg_neg 	1.0
+T: 	goto_r0: 	agent_r2_human_r0_neg_neg_pos: 	agent_r0_human_r0_neg_neg_pos 	1.0
+T: 	goto_r0: 	agent_r2_human_r0_neg_pos_neg: 	agent_r0_human_r0_neg_pos_neg 	1.0
+T: 	goto_r0: 	agent_r2_human_r0_neg_pos_pos: 	agent_r0_human_r0_neg_pos_pos 	1.0
+T: 	goto_r0: 	agent_r2_human_r0_pos_neg_neg: 	agent_r0_human_r0_pos_neg_neg 	1.0
+T: 	goto_r0: 	agent_r2_human_r0_pos_neg_pos: 	agent_r0_human_r0_pos_neg_pos 	1.0
+T: 	goto_r0: 	agent_r2_human_r0_pos_pos_neg: 	agent_r0_human_r0_pos_pos_neg 	1.0
+T: 	goto_r0: 	agent_r2_human_r0_pos_pos_pos: 	agent_r0_human_r0_pos_pos_pos 	1.0
+T: 	goto_r0: 	agent_r2_human_r1_neg_neg_neg: 	agent_r0_human_r1_neg_neg_neg 	1.0
+T: 	goto_r0: 	agent_r2_human_r1_neg_neg_pos: 	agent_r0_human_r1_neg_neg_pos 	1.0
+T: 	goto_r0: 	agent_r2_human_r1_neg_pos_neg: 	agent_r0_human_r1_neg_pos_neg 	1.0
+T: 	goto_r0: 	agent_r2_human_r1_neg_pos_pos: 	agent_r0_human_r1_neg_pos_pos 	1.0
+T: 	goto_r0: 	agent_r2_human_r1_pos_neg_neg: 	agent_r0_human_r1_pos_neg_neg 	1.0
+T: 	goto_r0: 	agent_r2_human_r1_pos_neg_pos: 	agent_r0_human_r1_pos_neg_pos 	1.0
+T: 	goto_r0: 	agent_r2_human_r1_pos_pos_neg: 	agent_r0_human_r1_pos_pos_neg 	1.0
+T: 	goto_r0: 	agent_r2_human_r1_pos_pos_pos: 	agent_r0_human_r1_pos_pos_pos 	1.0
+T: 	goto_r0: 	agent_r2_human_r2_neg_neg_neg: 	agent_r0_human_r0_neg_neg_neg 	1.0
+T: 	goto_r0: 	agent_r2_human_r2_neg_neg_pos: 	agent_r0_human_r0_neg_neg_pos 	1.0
+T: 	goto_r0: 	agent_r2_human_r2_neg_pos_neg: 	agent_r0_human_r0_neg_pos_neg 	1.0
+T: 	goto_r0: 	agent_r2_human_r2_neg_pos_pos: 	agent_r0_human_r0_neg_pos_pos 	1.0
+T: 	goto_r0: 	agent_r2_human_r2_pos_neg_neg: 	agent_r0_human_r0_pos_neg_neg 	1.0
+T: 	goto_r0: 	agent_r2_human_r2_pos_neg_pos: 	agent_r0_human_r0_pos_neg_pos 	1.0
+T: 	goto_r0: 	agent_r2_human_r2_pos_pos_neg: 	agent_r0_human_r0_pos_pos_neg 	1.0
+T: 	goto_r0: 	agent_r2_human_r2_pos_pos_pos: 	agent_r0_human_r0_pos_pos_pos 	1.0
+T: 	goto_r1: 	agent_r0_human_r0_neg_neg_neg: 	agent_r1_human_r1_neg_neg_neg 	1.0
+T: 	goto_r1: 	agent_r0_human_r0_neg_neg_pos: 	agent_r1_human_r1_neg_neg_pos 	1.0
+T: 	goto_r1: 	agent_r0_human_r0_neg_pos_neg: 	agent_r1_human_r1_neg_pos_neg 	1.0
+T: 	goto_r1: 	agent_r0_human_r0_neg_pos_pos: 	agent_r1_human_r1_neg_pos_pos 	1.0
+T: 	goto_r1: 	agent_r0_human_r0_pos_neg_neg: 	agent_r1_human_r1_pos_neg_neg 	1.0
+T: 	goto_r1: 	agent_r0_human_r0_pos_neg_pos: 	agent_r1_human_r1_pos_neg_pos 	1.0
+T: 	goto_r1: 	agent_r0_human_r0_pos_pos_neg: 	agent_r1_human_r1_pos_pos_neg 	1.0
+T: 	goto_r1: 	agent_r0_human_r0_pos_pos_pos: 	agent_r1_human_r1_pos_pos_pos 	1.0
+T: 	goto_r1: 	agent_r0_human_r1_neg_neg_neg: 	agent_r1_human_r1_neg_neg_neg 	1.0
+T: 	goto_r1: 	agent_r0_human_r1_neg_neg_pos: 	agent_r1_human_r1_neg_neg_pos 	1.0
+T: 	goto_r1: 	agent_r0_human_r1_neg_pos_neg: 	agent_r1_human_r1_neg_pos_neg 	1.0
+T: 	goto_r1: 	agent_r0_human_r1_neg_pos_pos: 	agent_r1_human_r1_neg_pos_pos 	1.0
+T: 	goto_r1: 	agent_r0_human_r1_pos_neg_neg: 	agent_r1_human_r1_pos_neg_neg 	1.0
+T: 	goto_r1: 	agent_r0_human_r1_pos_neg_pos: 	agent_r1_human_r1_pos_neg_pos 	1.0
+T: 	goto_r1: 	agent_r0_human_r1_pos_pos_neg: 	agent_r1_human_r1_pos_pos_neg 	1.0
+T: 	goto_r1: 	agent_r0_human_r1_pos_pos_pos: 	agent_r1_human_r1_pos_pos_pos 	1.0
+T: 	goto_r1: 	agent_r0_human_r2_neg_neg_neg: 	agent_r1_human_r2_neg_neg_neg 	1.0
+T: 	goto_r1: 	agent_r0_human_r2_neg_neg_pos: 	agent_r1_human_r2_neg_neg_pos 	1.0
+T: 	goto_r1: 	agent_r0_human_r2_neg_pos_neg: 	agent_r1_human_r2_neg_pos_neg 	1.0
+T: 	goto_r1: 	agent_r0_human_r2_neg_pos_pos: 	agent_r1_human_r2_neg_pos_pos 	1.0
+T: 	goto_r1: 	agent_r0_human_r2_pos_neg_neg: 	agent_r1_human_r2_pos_neg_neg 	1.0
+T: 	goto_r1: 	agent_r0_human_r2_pos_neg_pos: 	agent_r1_human_r2_pos_neg_pos 	1.0
+T: 	goto_r1: 	agent_r0_human_r2_pos_pos_neg: 	agent_r1_human_r2_pos_pos_neg 	1.0
+T: 	goto_r1: 	agent_r0_human_r2_pos_pos_pos: 	agent_r1_human_r2_pos_pos_pos 	1.0
+T: 	goto_r1: 	agent_r1_human_r0_neg_neg_neg: 	agent_r1_human_r0_neg_neg_neg 	1.0
+T: 	goto_r1: 	agent_r1_human_r0_neg_neg_pos: 	agent_r1_human_r0_neg_neg_pos 	1.0
+T: 	goto_r1: 	agent_r1_human_r0_neg_pos_neg: 	agent_r1_human_r0_neg_pos_neg 	1.0
+T: 	goto_r1: 	agent_r1_human_r0_neg_pos_pos: 	agent_r1_human_r0_neg_pos_pos 	1.0
+T: 	goto_r1: 	agent_r1_human_r0_pos_neg_neg: 	agent_r1_human_r0_pos_neg_neg 	1.0
+T: 	goto_r1: 	agent_r1_human_r0_pos_neg_pos: 	agent_r1_human_r0_pos_neg_pos 	1.0
+T: 	goto_r1: 	agent_r1_human_r0_pos_pos_neg: 	agent_r1_human_r0_pos_pos_neg 	1.0
+T: 	goto_r1: 	agent_r1_human_r0_pos_pos_pos: 	agent_r1_human_r0_pos_pos_pos 	1.0
+T: 	goto_r1: 	agent_r1_human_r1_neg_neg_neg: 	agent_r1_human_r1_neg_neg_neg 	1.0
+T: 	goto_r1: 	agent_r1_human_r1_neg_neg_pos: 	agent_r1_human_r1_neg_neg_pos 	1.0
+T: 	goto_r1: 	agent_r1_human_r1_neg_pos_neg: 	agent_r1_human_r1_neg_pos_neg 	1.0
+T: 	goto_r1: 	agent_r1_human_r1_neg_pos_pos: 	agent_r1_human_r1_neg_pos_pos 	1.0
+T: 	goto_r1: 	agent_r1_human_r1_pos_neg_neg: 	agent_r1_human_r1_pos_neg_neg 	1.0
+T: 	goto_r1: 	agent_r1_human_r1_pos_neg_pos: 	agent_r1_human_r1_pos_neg_pos 	1.0
+T: 	goto_r1: 	agent_r1_human_r1_pos_pos_neg: 	agent_r1_human_r1_pos_pos_neg 	1.0
+T: 	goto_r1: 	agent_r1_human_r1_pos_pos_pos: 	agent_r1_human_r1_pos_pos_pos 	1.0
+T: 	goto_r1: 	agent_r1_human_r2_neg_neg_neg: 	agent_r1_human_r2_neg_neg_neg 	1.0
+T: 	goto_r1: 	agent_r1_human_r2_neg_neg_pos: 	agent_r1_human_r2_neg_neg_pos 	1.0
+T: 	goto_r1: 	agent_r1_human_r2_neg_pos_neg: 	agent_r1_human_r2_neg_pos_neg 	1.0
+T: 	goto_r1: 	agent_r1_human_r2_neg_pos_pos: 	agent_r1_human_r2_neg_pos_pos 	1.0
+T: 	goto_r1: 	agent_r1_human_r2_pos_neg_neg: 	agent_r1_human_r2_pos_neg_neg 	1.0
+T: 	goto_r1: 	agent_r1_human_r2_pos_neg_pos: 	agent_r1_human_r2_pos_neg_pos 	1.0
+T: 	goto_r1: 	agent_r1_human_r2_pos_pos_neg: 	agent_r1_human_r2_pos_pos_neg 	1.0
+T: 	goto_r1: 	agent_r1_human_r2_pos_pos_pos: 	agent_r1_human_r2_pos_pos_pos 	1.0
+T: 	goto_r1: 	agent_r2_human_r0_neg_neg_neg: 	agent_r1_human_r0_neg_neg_neg 	1.0
+T: 	goto_r1: 	agent_r2_human_r0_neg_neg_pos: 	agent_r1_human_r0_neg_neg_pos 	1.0
+T: 	goto_r1: 	agent_r2_human_r0_neg_pos_neg: 	agent_r1_human_r0_neg_pos_neg 	1.0
+T: 	goto_r1: 	agent_r2_human_r0_neg_pos_pos: 	agent_r1_human_r0_neg_pos_pos 	1.0
+T: 	goto_r1: 	agent_r2_human_r0_pos_neg_neg: 	agent_r1_human_r0_pos_neg_neg 	1.0
+T: 	goto_r1: 	agent_r2_human_r0_pos_neg_pos: 	agent_r1_human_r0_pos_neg_pos 	1.0
+T: 	goto_r1: 	agent_r2_human_r0_pos_pos_neg: 	agent_r1_human_r0_pos_pos_neg 	1.0
+T: 	goto_r1: 	agent_r2_human_r0_pos_pos_pos: 	agent_r1_human_r0_pos_pos_pos 	1.0
+T: 	goto_r1: 	agent_r2_human_r1_neg_neg_neg: 	agent_r1_human_r1_neg_neg_neg 	1.0
+T: 	goto_r1: 	agent_r2_human_r1_neg_neg_pos: 	agent_r1_human_r1_neg_neg_pos 	1.0
+T: 	goto_r1: 	agent_r2_human_r1_neg_pos_neg: 	agent_r1_human_r1_neg_pos_neg 	1.0
+T: 	goto_r1: 	agent_r2_human_r1_neg_pos_pos: 	agent_r1_human_r1_neg_pos_pos 	1.0
+T: 	goto_r1: 	agent_r2_human_r1_pos_neg_neg: 	agent_r1_human_r1_pos_neg_neg 	1.0
+T: 	goto_r1: 	agent_r2_human_r1_pos_neg_pos: 	agent_r1_human_r1_pos_neg_pos 	1.0
+T: 	goto_r1: 	agent_r2_human_r1_pos_pos_neg: 	agent_r1_human_r1_pos_pos_neg 	1.0
+T: 	goto_r1: 	agent_r2_human_r1_pos_pos_pos: 	agent_r1_human_r1_pos_pos_pos 	1.0
+T: 	goto_r1: 	agent_r2_human_r2_neg_neg_neg: 	agent_r1_human_r1_neg_neg_neg 	1.0
+T: 	goto_r1: 	agent_r2_human_r2_neg_neg_pos: 	agent_r1_human_r1_neg_neg_pos 	1.0
+T: 	goto_r1: 	agent_r2_human_r2_neg_pos_neg: 	agent_r1_human_r1_neg_pos_neg 	1.0
+T: 	goto_r1: 	agent_r2_human_r2_neg_pos_pos: 	agent_r1_human_r1_neg_pos_pos 	1.0
+T: 	goto_r1: 	agent_r2_human_r2_pos_neg_neg: 	agent_r1_human_r1_pos_neg_neg 	1.0
+T: 	goto_r1: 	agent_r2_human_r2_pos_neg_pos: 	agent_r1_human_r1_pos_neg_pos 	1.0
+T: 	goto_r1: 	agent_r2_human_r2_pos_pos_neg: 	agent_r1_human_r1_pos_pos_neg 	1.0
+T: 	goto_r1: 	agent_r2_human_r2_pos_pos_pos: 	agent_r1_human_r1_pos_pos_pos 	1.0
+T: 	goto_r2: 	agent_r0_human_r0_neg_neg_neg: 	agent_r2_human_r2_neg_neg_neg 	1.0
+T: 	goto_r2: 	agent_r0_human_r0_neg_neg_pos: 	agent_r2_human_r2_neg_neg_pos 	1.0
+T: 	goto_r2: 	agent_r0_human_r0_neg_pos_neg: 	agent_r2_human_r2_neg_pos_neg 	1.0
+T: 	goto_r2: 	agent_r0_human_r0_neg_pos_pos: 	agent_r2_human_r2_neg_pos_pos 	1.0
+T: 	goto_r2: 	agent_r0_human_r0_pos_neg_neg: 	agent_r2_human_r2_pos_neg_neg 	1.0
+T: 	goto_r2: 	agent_r0_human_r0_pos_neg_pos: 	agent_r2_human_r2_pos_neg_pos 	1.0
+T: 	goto_r2: 	agent_r0_human_r0_pos_pos_neg: 	agent_r2_human_r2_pos_pos_neg 	1.0
+T: 	goto_r2: 	agent_r0_human_r0_pos_pos_pos: 	agent_r2_human_r2_pos_pos_pos 	1.0
+T: 	goto_r2: 	agent_r0_human_r1_neg_neg_neg: 	agent_r2_human_r1_neg_neg_neg 	1.0
+T: 	goto_r2: 	agent_r0_human_r1_neg_neg_pos: 	agent_r2_human_r1_neg_neg_pos 	1.0
+T: 	goto_r2: 	agent_r0_human_r1_neg_pos_neg: 	agent_r2_human_r1_neg_pos_neg 	1.0
+T: 	goto_r2: 	agent_r0_human_r1_neg_pos_pos: 	agent_r2_human_r1_neg_pos_pos 	1.0
+T: 	goto_r2: 	agent_r0_human_r1_pos_neg_neg: 	agent_r2_human_r1_pos_neg_neg 	1.0
+T: 	goto_r2: 	agent_r0_human_r1_pos_neg_pos: 	agent_r2_human_r1_pos_neg_pos 	1.0
+T: 	goto_r2: 	agent_r0_human_r1_pos_pos_neg: 	agent_r2_human_r1_pos_pos_neg 	1.0
+T: 	goto_r2: 	agent_r0_human_r1_pos_pos_pos: 	agent_r2_human_r1_pos_pos_pos 	1.0
+T: 	goto_r2: 	agent_r0_human_r2_neg_neg_neg: 	agent_r2_human_r2_neg_neg_neg 	1.0
+T: 	goto_r2: 	agent_r0_human_r2_neg_neg_pos: 	agent_r2_human_r2_neg_neg_pos 	1.0
+T: 	goto_r2: 	agent_r0_human_r2_neg_pos_neg: 	agent_r2_human_r2_neg_pos_neg 	1.0
+T: 	goto_r2: 	agent_r0_human_r2_neg_pos_pos: 	agent_r2_human_r2_neg_pos_pos 	1.0
+T: 	goto_r2: 	agent_r0_human_r2_pos_neg_neg: 	agent_r2_human_r2_pos_neg_neg 	1.0
+T: 	goto_r2: 	agent_r0_human_r2_pos_neg_pos: 	agent_r2_human_r2_pos_neg_pos 	1.0
+T: 	goto_r2: 	agent_r0_human_r2_pos_pos_neg: 	agent_r2_human_r2_pos_pos_neg 	1.0
+T: 	goto_r2: 	agent_r0_human_r2_pos_pos_pos: 	agent_r2_human_r2_pos_pos_pos 	1.0
+T: 	goto_r2: 	agent_r1_human_r0_neg_neg_neg: 	agent_r2_human_r0_neg_neg_neg 	1.0
+T: 	goto_r2: 	agent_r1_human_r0_neg_neg_pos: 	agent_r2_human_r0_neg_neg_pos 	1.0
+T: 	goto_r2: 	agent_r1_human_r0_neg_pos_neg: 	agent_r2_human_r0_neg_pos_neg 	1.0
+T: 	goto_r2: 	agent_r1_human_r0_neg_pos_pos: 	agent_r2_human_r0_neg_pos_pos 	1.0
+T: 	goto_r2: 	agent_r1_human_r0_pos_neg_neg: 	agent_r2_human_r0_pos_neg_neg 	1.0
+T: 	goto_r2: 	agent_r1_human_r0_pos_neg_pos: 	agent_r2_human_r0_pos_neg_pos 	1.0
+T: 	goto_r2: 	agent_r1_human_r0_pos_pos_neg: 	agent_r2_human_r0_pos_pos_neg 	1.0
+T: 	goto_r2: 	agent_r1_human_r0_pos_pos_pos: 	agent_r2_human_r0_pos_pos_pos 	1.0
+T: 	goto_r2: 	agent_r1_human_r1_neg_neg_neg: 	agent_r2_human_r2_neg_neg_neg 	1.0
+T: 	goto_r2: 	agent_r1_human_r1_neg_neg_pos: 	agent_r2_human_r2_neg_neg_pos 	1.0
+T: 	goto_r2: 	agent_r1_human_r1_neg_pos_neg: 	agent_r2_human_r2_neg_pos_neg 	1.0
+T: 	goto_r2: 	agent_r1_human_r1_neg_pos_pos: 	agent_r2_human_r2_neg_pos_pos 	1.0
+T: 	goto_r2: 	agent_r1_human_r1_pos_neg_neg: 	agent_r2_human_r2_pos_neg_neg 	1.0
+T: 	goto_r2: 	agent_r1_human_r1_pos_neg_pos: 	agent_r2_human_r2_pos_neg_pos 	1.0
+T: 	goto_r2: 	agent_r1_human_r1_pos_pos_neg: 	agent_r2_human_r2_pos_pos_neg 	1.0
+T: 	goto_r2: 	agent_r1_human_r1_pos_pos_pos: 	agent_r2_human_r2_pos_pos_pos 	1.0
+T: 	goto_r2: 	agent_r1_human_r2_neg_neg_neg: 	agent_r2_human_r2_neg_neg_neg 	1.0
+T: 	goto_r2: 	agent_r1_human_r2_neg_neg_pos: 	agent_r2_human_r2_neg_neg_pos 	1.0
+T: 	goto_r2: 	agent_r1_human_r2_neg_pos_neg: 	agent_r2_human_r2_neg_pos_neg 	1.0
+T: 	goto_r2: 	agent_r1_human_r2_neg_pos_pos: 	agent_r2_human_r2_neg_pos_pos 	1.0
+T: 	goto_r2: 	agent_r1_human_r2_pos_neg_neg: 	agent_r2_human_r2_pos_neg_neg 	1.0
+T: 	goto_r2: 	agent_r1_human_r2_pos_neg_pos: 	agent_r2_human_r2_pos_neg_pos 	1.0
+T: 	goto_r2: 	agent_r1_human_r2_pos_pos_neg: 	agent_r2_human_r2_pos_pos_neg 	1.0
+T: 	goto_r2: 	agent_r1_human_r2_pos_pos_pos: 	agent_r2_human_r2_pos_pos_pos 	1.0
+T: 	goto_r2: 	agent_r2_human_r0_neg_neg_neg: 	agent_r2_human_r0_neg_neg_neg 	1.0
+T: 	goto_r2: 	agent_r2_human_r0_neg_neg_pos: 	agent_r2_human_r0_neg_neg_pos 	1.0
+T: 	goto_r2: 	agent_r2_human_r0_neg_pos_neg: 	agent_r2_human_r0_neg_pos_neg 	1.0
+T: 	goto_r2: 	agent_r2_human_r0_neg_pos_pos: 	agent_r2_human_r0_neg_pos_pos 	1.0
+T: 	goto_r2: 	agent_r2_human_r0_pos_neg_neg: 	agent_r2_human_r0_pos_neg_neg 	1.0
+T: 	goto_r2: 	agent_r2_human_r0_pos_neg_pos: 	agent_r2_human_r0_pos_neg_pos 	1.0
+T: 	goto_r2: 	agent_r2_human_r0_pos_pos_neg: 	agent_r2_human_r0_pos_pos_neg 	1.0
+T: 	goto_r2: 	agent_r2_human_r0_pos_pos_pos: 	agent_r2_human_r0_pos_pos_pos 	1.0
+T: 	goto_r2: 	agent_r2_human_r1_neg_neg_neg: 	agent_r2_human_r1_neg_neg_neg 	1.0
+T: 	goto_r2: 	agent_r2_human_r1_neg_neg_pos: 	agent_r2_human_r1_neg_neg_pos 	1.0
+T: 	goto_r2: 	agent_r2_human_r1_neg_pos_neg: 	agent_r2_human_r1_neg_pos_neg 	1.0
+T: 	goto_r2: 	agent_r2_human_r1_neg_pos_pos: 	agent_r2_human_r1_neg_pos_pos 	1.0
+T: 	goto_r2: 	agent_r2_human_r1_pos_neg_neg: 	agent_r2_human_r1_pos_neg_neg 	1.0
+T: 	goto_r2: 	agent_r2_human_r1_pos_neg_pos: 	agent_r2_human_r1_pos_neg_pos 	1.0
+T: 	goto_r2: 	agent_r2_human_r1_pos_pos_neg: 	agent_r2_human_r1_pos_pos_neg 	1.0
+T: 	goto_r2: 	agent_r2_human_r1_pos_pos_pos: 	agent_r2_human_r1_pos_pos_pos 	1.0
+T: 	goto_r2: 	agent_r2_human_r2_neg_neg_neg: 	agent_r2_human_r2_neg_neg_neg 	1.0
+T: 	goto_r2: 	agent_r2_human_r2_neg_neg_pos: 	agent_r2_human_r2_neg_neg_pos 	1.0
+T: 	goto_r2: 	agent_r2_human_r2_neg_pos_neg: 	agent_r2_human_r2_neg_pos_neg 	1.0
+T: 	goto_r2: 	agent_r2_human_r2_neg_pos_pos: 	agent_r2_human_r2_neg_pos_pos 	1.0
+T: 	goto_r2: 	agent_r2_human_r2_pos_neg_neg: 	agent_r2_human_r2_pos_neg_neg 	1.0
+T: 	goto_r2: 	agent_r2_human_r2_pos_neg_pos: 	agent_r2_human_r2_pos_neg_pos 	1.0
+T: 	goto_r2: 	agent_r2_human_r2_pos_pos_neg: 	agent_r2_human_r2_pos_pos_neg 	1.0
+T: 	goto_r2: 	agent_r2_human_r2_pos_pos_pos: 	agent_r2_human_r2_pos_pos_pos 	1.0
+T: 	inform_r0: 	agent_r0_human_r0_neg_neg_neg:	 agent_r0_human_r0_pos_neg_neg 	1.0
+T: 	inform_r0: 	agent_r0_human_r0_neg_neg_pos:	 agent_r0_human_r0_pos_neg_pos 	1.0
+T: 	inform_r0: 	agent_r0_human_r0_neg_pos_neg:	 agent_r0_human_r0_pos_pos_neg 	1.0
+T: 	inform_r0: 	agent_r0_human_r0_neg_pos_pos:	 agent_r0_human_r0_pos_pos_pos 	1.0
+T: 	inform_r0: 	agent_r0_human_r0_pos_neg_neg:	 agent_r0_human_r0_pos_neg_neg 	1.0
+T: 	inform_r0: 	agent_r0_human_r0_pos_neg_pos:	 agent_r0_human_r0_pos_neg_pos 	1.0
+T: 	inform_r0: 	agent_r0_human_r0_pos_pos_neg:	 agent_r0_human_r0_pos_pos_neg 	1.0
+T: 	inform_r0: 	agent_r0_human_r0_pos_pos_pos:	 agent_r0_human_r0_pos_pos_pos 	1.0
+T: 	inform_r0: 	agent_r0_human_r1_neg_neg_neg:	 agent_r0_human_r1_neg_neg_neg 	1.0
+T: 	inform_r0: 	agent_r0_human_r1_neg_neg_pos:	 agent_r0_human_r1_neg_neg_pos 	1.0
+T: 	inform_r0: 	agent_r0_human_r1_neg_pos_neg:	 agent_r0_human_r1_neg_pos_neg 	1.0
+T: 	inform_r0: 	agent_r0_human_r1_neg_pos_pos:	 agent_r0_human_r1_neg_pos_pos 	1.0
+T: 	inform_r0: 	agent_r0_human_r1_pos_neg_neg:	 agent_r0_human_r1_pos_neg_neg 	1.0
+T: 	inform_r0: 	agent_r0_human_r1_pos_neg_pos:	 agent_r0_human_r1_pos_neg_pos 	1.0
+T: 	inform_r0: 	agent_r0_human_r1_pos_pos_neg:	 agent_r0_human_r1_pos_pos_neg 	1.0
+T: 	inform_r0: 	agent_r0_human_r1_pos_pos_pos:	 agent_r0_human_r1_pos_pos_pos 	1.0
+T: 	inform_r0: 	agent_r0_human_r2_neg_neg_neg:	 agent_r0_human_r2_neg_neg_neg 	1.0
+T: 	inform_r0: 	agent_r0_human_r2_neg_neg_pos:	 agent_r0_human_r2_neg_neg_pos 	1.0
+T: 	inform_r0: 	agent_r0_human_r2_neg_pos_neg:	 agent_r0_human_r2_neg_pos_neg 	1.0
+T: 	inform_r0: 	agent_r0_human_r2_neg_pos_pos:	 agent_r0_human_r2_neg_pos_pos 	1.0
+T: 	inform_r0: 	agent_r0_human_r2_pos_neg_neg:	 agent_r0_human_r2_pos_neg_neg 	1.0
+T: 	inform_r0: 	agent_r0_human_r2_pos_neg_pos:	 agent_r0_human_r2_pos_neg_pos 	1.0
+T: 	inform_r0: 	agent_r0_human_r2_pos_pos_neg:	 agent_r0_human_r2_pos_pos_neg 	1.0
+T: 	inform_r0: 	agent_r0_human_r2_pos_pos_pos:	 agent_r0_human_r2_pos_pos_pos 	1.0
+T: 	inform_r0: 	agent_r1_human_r0_neg_neg_neg:	 agent_r1_human_r0_neg_neg_neg 	1.0
+T: 	inform_r0: 	agent_r1_human_r0_neg_neg_pos:	 agent_r1_human_r0_neg_neg_pos 	1.0
+T: 	inform_r0: 	agent_r1_human_r0_neg_pos_neg:	 agent_r1_human_r0_neg_pos_neg 	1.0
+T: 	inform_r0: 	agent_r1_human_r0_neg_pos_pos:	 agent_r1_human_r0_neg_pos_pos 	1.0
+T: 	inform_r0: 	agent_r1_human_r0_pos_neg_neg:	 agent_r1_human_r0_pos_neg_neg 	1.0
+T: 	inform_r0: 	agent_r1_human_r0_pos_neg_pos:	 agent_r1_human_r0_pos_neg_pos 	1.0
+T: 	inform_r0: 	agent_r1_human_r0_pos_pos_neg:	 agent_r1_human_r0_pos_pos_neg 	1.0
+T: 	inform_r0: 	agent_r1_human_r0_pos_pos_pos:	 agent_r1_human_r0_pos_pos_pos 	1.0
+T: 	inform_r0: 	agent_r1_human_r1_neg_neg_neg:	 agent_r1_human_r1_neg_neg_neg 	1.0
+T: 	inform_r0: 	agent_r1_human_r1_neg_neg_pos:	 agent_r1_human_r1_neg_neg_pos 	1.0
+T: 	inform_r0: 	agent_r1_human_r1_neg_pos_neg:	 agent_r1_human_r1_neg_pos_neg 	1.0
+T: 	inform_r0: 	agent_r1_human_r1_neg_pos_pos:	 agent_r1_human_r1_neg_pos_pos 	1.0
+T: 	inform_r0: 	agent_r1_human_r1_pos_neg_neg:	 agent_r1_human_r1_pos_neg_neg 	1.0
+T: 	inform_r0: 	agent_r1_human_r1_pos_neg_pos:	 agent_r1_human_r1_pos_neg_pos 	1.0
+T: 	inform_r0: 	agent_r1_human_r1_pos_pos_neg:	 agent_r1_human_r1_pos_pos_neg 	1.0
+T: 	inform_r0: 	agent_r1_human_r1_pos_pos_pos:	 agent_r1_human_r1_pos_pos_pos 	1.0
+T: 	inform_r0: 	agent_r1_human_r2_neg_neg_neg:	 agent_r1_human_r2_neg_neg_neg 	1.0
+T: 	inform_r0: 	agent_r1_human_r2_neg_neg_pos:	 agent_r1_human_r2_neg_neg_pos 	1.0
+T: 	inform_r0: 	agent_r1_human_r2_neg_pos_neg:	 agent_r1_human_r2_neg_pos_neg 	1.0
+T: 	inform_r0: 	agent_r1_human_r2_neg_pos_pos:	 agent_r1_human_r2_neg_pos_pos 	1.0
+T: 	inform_r0: 	agent_r1_human_r2_pos_neg_neg:	 agent_r1_human_r2_pos_neg_neg 	1.0
+T: 	inform_r0: 	agent_r1_human_r2_pos_neg_pos:	 agent_r1_human_r2_pos_neg_pos 	1.0
+T: 	inform_r0: 	agent_r1_human_r2_pos_pos_neg:	 agent_r1_human_r2_pos_pos_neg 	1.0
+T: 	inform_r0: 	agent_r1_human_r2_pos_pos_pos:	 agent_r1_human_r2_pos_pos_pos 	1.0
+T: 	inform_r0: 	agent_r2_human_r0_neg_neg_neg:	 agent_r2_human_r0_neg_neg_neg 	1.0
+T: 	inform_r0: 	agent_r2_human_r0_neg_neg_pos:	 agent_r2_human_r0_neg_neg_pos 	1.0
+T: 	inform_r0: 	agent_r2_human_r0_neg_pos_neg:	 agent_r2_human_r0_neg_pos_neg 	1.0
+T: 	inform_r0: 	agent_r2_human_r0_neg_pos_pos:	 agent_r2_human_r0_neg_pos_pos 	1.0
+T: 	inform_r0: 	agent_r2_human_r0_pos_neg_neg:	 agent_r2_human_r0_pos_neg_neg 	1.0
+T: 	inform_r0: 	agent_r2_human_r0_pos_neg_pos:	 agent_r2_human_r0_pos_neg_pos 	1.0
+T: 	inform_r0: 	agent_r2_human_r0_pos_pos_neg:	 agent_r2_human_r0_pos_pos_neg 	1.0
+T: 	inform_r0: 	agent_r2_human_r0_pos_pos_pos:	 agent_r2_human_r0_pos_pos_pos 	1.0
+T: 	inform_r0: 	agent_r2_human_r1_neg_neg_neg:	 agent_r2_human_r1_neg_neg_neg 	1.0
+T: 	inform_r0: 	agent_r2_human_r1_neg_neg_pos:	 agent_r2_human_r1_neg_neg_pos 	1.0
+T: 	inform_r0: 	agent_r2_human_r1_neg_pos_neg:	 agent_r2_human_r1_neg_pos_neg 	1.0
+T: 	inform_r0: 	agent_r2_human_r1_neg_pos_pos:	 agent_r2_human_r1_neg_pos_pos 	1.0
+T: 	inform_r0: 	agent_r2_human_r1_pos_neg_neg:	 agent_r2_human_r1_pos_neg_neg 	1.0
+T: 	inform_r0: 	agent_r2_human_r1_pos_neg_pos:	 agent_r2_human_r1_pos_neg_pos 	1.0
+T: 	inform_r0: 	agent_r2_human_r1_pos_pos_neg:	 agent_r2_human_r1_pos_pos_neg 	1.0
+T: 	inform_r0: 	agent_r2_human_r1_pos_pos_pos:	 agent_r2_human_r1_pos_pos_pos 	1.0
+T: 	inform_r0: 	agent_r2_human_r2_neg_neg_neg:	 agent_r2_human_r2_neg_neg_neg 	1.0
+T: 	inform_r0: 	agent_r2_human_r2_neg_neg_pos:	 agent_r2_human_r2_neg_neg_pos 	1.0
+T: 	inform_r0: 	agent_r2_human_r2_neg_pos_neg:	 agent_r2_human_r2_neg_pos_neg 	1.0
+T: 	inform_r0: 	agent_r2_human_r2_neg_pos_pos:	 agent_r2_human_r2_neg_pos_pos 	1.0
+T: 	inform_r0: 	agent_r2_human_r2_pos_neg_neg:	 agent_r2_human_r2_pos_neg_neg 	1.0
+T: 	inform_r0: 	agent_r2_human_r2_pos_neg_pos:	 agent_r2_human_r2_pos_neg_pos 	1.0
+T: 	inform_r0: 	agent_r2_human_r2_pos_pos_neg:	 agent_r2_human_r2_pos_pos_neg 	1.0
+T: 	inform_r0: 	agent_r2_human_r2_pos_pos_pos:	 agent_r2_human_r2_pos_pos_pos 	1.0
+T: 	inform_r1: 	agent_r0_human_r0_neg_neg_neg:	 agent_r0_human_r0_neg_neg_neg 	1.0
+T: 	inform_r1: 	agent_r0_human_r0_neg_neg_pos:	 agent_r0_human_r0_neg_neg_pos 	1.0
+T: 	inform_r1: 	agent_r0_human_r0_neg_pos_neg:	 agent_r0_human_r0_neg_pos_neg 	1.0
+T: 	inform_r1: 	agent_r0_human_r0_neg_pos_pos:	 agent_r0_human_r0_neg_pos_pos 	1.0
+T: 	inform_r1: 	agent_r0_human_r0_pos_neg_neg:	 agent_r0_human_r0_pos_neg_neg 	1.0
+T: 	inform_r1: 	agent_r0_human_r0_pos_neg_pos:	 agent_r0_human_r0_pos_neg_pos 	1.0
+T: 	inform_r1: 	agent_r0_human_r0_pos_pos_neg:	 agent_r0_human_r0_pos_pos_neg 	1.0
+T: 	inform_r1: 	agent_r0_human_r0_pos_pos_pos:	 agent_r0_human_r0_pos_pos_pos 	1.0
+T: 	inform_r1: 	agent_r0_human_r1_neg_neg_neg:	 agent_r0_human_r1_neg_neg_neg 	1.0
+T: 	inform_r1: 	agent_r0_human_r1_neg_neg_pos:	 agent_r0_human_r1_neg_neg_pos 	1.0
+T: 	inform_r1: 	agent_r0_human_r1_neg_pos_neg:	 agent_r0_human_r1_neg_pos_neg 	1.0
+T: 	inform_r1: 	agent_r0_human_r1_neg_pos_pos:	 agent_r0_human_r1_neg_pos_pos 	1.0
+T: 	inform_r1: 	agent_r0_human_r1_pos_neg_neg:	 agent_r0_human_r1_pos_neg_neg 	1.0
+T: 	inform_r1: 	agent_r0_human_r1_pos_neg_pos:	 agent_r0_human_r1_pos_neg_pos 	1.0
+T: 	inform_r1: 	agent_r0_human_r1_pos_pos_neg:	 agent_r0_human_r1_pos_pos_neg 	1.0
+T: 	inform_r1: 	agent_r0_human_r1_pos_pos_pos:	 agent_r0_human_r1_pos_pos_pos 	1.0
+T: 	inform_r1: 	agent_r0_human_r2_neg_neg_neg:	 agent_r0_human_r2_neg_neg_neg 	1.0
+T: 	inform_r1: 	agent_r0_human_r2_neg_neg_pos:	 agent_r0_human_r2_neg_neg_pos 	1.0
+T: 	inform_r1: 	agent_r0_human_r2_neg_pos_neg:	 agent_r0_human_r2_neg_pos_neg 	1.0
+T: 	inform_r1: 	agent_r0_human_r2_neg_pos_pos:	 agent_r0_human_r2_neg_pos_pos 	1.0
+T: 	inform_r1: 	agent_r0_human_r2_pos_neg_neg:	 agent_r0_human_r2_pos_neg_neg 	1.0
+T: 	inform_r1: 	agent_r0_human_r2_pos_neg_pos:	 agent_r0_human_r2_pos_neg_pos 	1.0
+T: 	inform_r1: 	agent_r0_human_r2_pos_pos_neg:	 agent_r0_human_r2_pos_pos_neg 	1.0
+T: 	inform_r1: 	agent_r0_human_r2_pos_pos_pos:	 agent_r0_human_r2_pos_pos_pos 	1.0
+T: 	inform_r1: 	agent_r1_human_r0_neg_neg_neg:	 agent_r1_human_r0_neg_neg_neg 	1.0
+T: 	inform_r1: 	agent_r1_human_r0_neg_neg_pos:	 agent_r1_human_r0_neg_neg_pos 	1.0
+T: 	inform_r1: 	agent_r1_human_r0_neg_pos_neg:	 agent_r1_human_r0_neg_pos_neg 	1.0
+T: 	inform_r1: 	agent_r1_human_r0_neg_pos_pos:	 agent_r1_human_r0_neg_pos_pos 	1.0
+T: 	inform_r1: 	agent_r1_human_r0_pos_neg_neg:	 agent_r1_human_r0_pos_neg_neg 	1.0
+T: 	inform_r1: 	agent_r1_human_r0_pos_neg_pos:	 agent_r1_human_r0_pos_neg_pos 	1.0
+T: 	inform_r1: 	agent_r1_human_r0_pos_pos_neg:	 agent_r1_human_r0_pos_pos_neg 	1.0
+T: 	inform_r1: 	agent_r1_human_r0_pos_pos_pos:	 agent_r1_human_r0_pos_pos_pos 	1.0
+T: 	inform_r1: 	agent_r1_human_r1_neg_neg_neg:	 agent_r1_human_r1_neg_pos_neg 	1.0
+T: 	inform_r1: 	agent_r1_human_r1_neg_neg_pos:	 agent_r1_human_r1_neg_pos_pos 	1.0
+T: 	inform_r1: 	agent_r1_human_r1_neg_pos_neg:	 agent_r1_human_r1_neg_pos_neg 	1.0
+T: 	inform_r1: 	agent_r1_human_r1_neg_pos_pos:	 agent_r1_human_r1_neg_pos_pos 	1.0
+T: 	inform_r1: 	agent_r1_human_r1_pos_neg_neg:	 agent_r1_human_r1_pos_pos_neg 	1.0
+T: 	inform_r1: 	agent_r1_human_r1_pos_neg_pos:	 agent_r1_human_r1_pos_pos_pos 	1.0
+T: 	inform_r1: 	agent_r1_human_r1_pos_pos_neg:	 agent_r1_human_r1_pos_pos_neg 	1.0
+T: 	inform_r1: 	agent_r1_human_r1_pos_pos_pos:	 agent_r1_human_r1_pos_pos_pos 	1.0
+T: 	inform_r1: 	agent_r1_human_r2_neg_neg_neg:	 agent_r1_human_r2_neg_neg_neg 	1.0
+T: 	inform_r1: 	agent_r1_human_r2_neg_neg_pos:	 agent_r1_human_r2_neg_neg_pos 	1.0
+T: 	inform_r1: 	agent_r1_human_r2_neg_pos_neg:	 agent_r1_human_r2_neg_pos_neg 	1.0
+T: 	inform_r1: 	agent_r1_human_r2_neg_pos_pos:	 agent_r1_human_r2_neg_pos_pos 	1.0
+T: 	inform_r1: 	agent_r1_human_r2_pos_neg_neg:	 agent_r1_human_r2_pos_neg_neg 	1.0
+T: 	inform_r1: 	agent_r1_human_r2_pos_neg_pos:	 agent_r1_human_r2_pos_neg_pos 	1.0
+T: 	inform_r1: 	agent_r1_human_r2_pos_pos_neg:	 agent_r1_human_r2_pos_pos_neg 	1.0
+T: 	inform_r1: 	agent_r1_human_r2_pos_pos_pos:	 agent_r1_human_r2_pos_pos_pos 	1.0
+T: 	inform_r1: 	agent_r2_human_r0_neg_neg_neg:	 agent_r2_human_r0_neg_neg_neg 	1.0
+T: 	inform_r1: 	agent_r2_human_r0_neg_neg_pos:	 agent_r2_human_r0_neg_neg_pos 	1.0
+T: 	inform_r1: 	agent_r2_human_r0_neg_pos_neg:	 agent_r2_human_r0_neg_pos_neg 	1.0
+T: 	inform_r1: 	agent_r2_human_r0_neg_pos_pos:	 agent_r2_human_r0_neg_pos_pos 	1.0
+T: 	inform_r1: 	agent_r2_human_r0_pos_neg_neg:	 agent_r2_human_r0_pos_neg_neg 	1.0
+T: 	inform_r1: 	agent_r2_human_r0_pos_neg_pos:	 agent_r2_human_r0_pos_neg_pos 	1.0
+T: 	inform_r1: 	agent_r2_human_r0_pos_pos_neg:	 agent_r2_human_r0_pos_pos_neg 	1.0
+T: 	inform_r1: 	agent_r2_human_r0_pos_pos_pos:	 agent_r2_human_r0_pos_pos_pos 	1.0
+T: 	inform_r1: 	agent_r2_human_r1_neg_neg_neg:	 agent_r2_human_r1_neg_neg_neg 	1.0
+T: 	inform_r1: 	agent_r2_human_r1_neg_neg_pos:	 agent_r2_human_r1_neg_neg_pos 	1.0
+T: 	inform_r1: 	agent_r2_human_r1_neg_pos_neg:	 agent_r2_human_r1_neg_pos_neg 	1.0
+T: 	inform_r1: 	agent_r2_human_r1_neg_pos_pos:	 agent_r2_human_r1_neg_pos_pos 	1.0
+T: 	inform_r1: 	agent_r2_human_r1_pos_neg_neg:	 agent_r2_human_r1_pos_neg_neg 	1.0
+T: 	inform_r1: 	agent_r2_human_r1_pos_neg_pos:	 agent_r2_human_r1_pos_neg_pos 	1.0
+T: 	inform_r1: 	agent_r2_human_r1_pos_pos_neg:	 agent_r2_human_r1_pos_pos_neg 	1.0
+T: 	inform_r1: 	agent_r2_human_r1_pos_pos_pos:	 agent_r2_human_r1_pos_pos_pos 	1.0
+T: 	inform_r1: 	agent_r2_human_r2_neg_neg_neg:	 agent_r2_human_r2_neg_neg_neg 	1.0
+T: 	inform_r1: 	agent_r2_human_r2_neg_neg_pos:	 agent_r2_human_r2_neg_neg_pos 	1.0
+T: 	inform_r1: 	agent_r2_human_r2_neg_pos_neg:	 agent_r2_human_r2_neg_pos_neg 	1.0
+T: 	inform_r1: 	agent_r2_human_r2_neg_pos_pos:	 agent_r2_human_r2_neg_pos_pos 	1.0
+T: 	inform_r1: 	agent_r2_human_r2_pos_neg_neg:	 agent_r2_human_r2_pos_neg_neg 	1.0
+T: 	inform_r1: 	agent_r2_human_r2_pos_neg_pos:	 agent_r2_human_r2_pos_neg_pos 	1.0
+T: 	inform_r1: 	agent_r2_human_r2_pos_pos_neg:	 agent_r2_human_r2_pos_pos_neg 	1.0
+T: 	inform_r1: 	agent_r2_human_r2_pos_pos_pos:	 agent_r2_human_r2_pos_pos_pos 	1.0
+T: 	inform_r2: 	agent_r0_human_r0_neg_neg_neg:	 agent_r0_human_r0_neg_neg_neg 	1.0
+T: 	inform_r2: 	agent_r0_human_r0_neg_neg_pos:	 agent_r0_human_r0_neg_neg_pos 	1.0
+T: 	inform_r2: 	agent_r0_human_r0_neg_pos_neg:	 agent_r0_human_r0_neg_pos_neg 	1.0
+T: 	inform_r2: 	agent_r0_human_r0_neg_pos_pos:	 agent_r0_human_r0_neg_pos_pos 	1.0
+T: 	inform_r2: 	agent_r0_human_r0_pos_neg_neg:	 agent_r0_human_r0_pos_neg_neg 	1.0
+T: 	inform_r2: 	agent_r0_human_r0_pos_neg_pos:	 agent_r0_human_r0_pos_neg_pos 	1.0
+T: 	inform_r2: 	agent_r0_human_r0_pos_pos_neg:	 agent_r0_human_r0_pos_pos_neg 	1.0
+T: 	inform_r2: 	agent_r0_human_r0_pos_pos_pos:	 agent_r0_human_r0_pos_pos_pos 	1.0
+T: 	inform_r2: 	agent_r0_human_r1_neg_neg_neg:	 agent_r0_human_r1_neg_neg_neg 	1.0
+T: 	inform_r2: 	agent_r0_human_r1_neg_neg_pos:	 agent_r0_human_r1_neg_neg_pos 	1.0
+T: 	inform_r2: 	agent_r0_human_r1_neg_pos_neg:	 agent_r0_human_r1_neg_pos_neg 	1.0
+T: 	inform_r2: 	agent_r0_human_r1_neg_pos_pos:	 agent_r0_human_r1_neg_pos_pos 	1.0
+T: 	inform_r2: 	agent_r0_human_r1_pos_neg_neg:	 agent_r0_human_r1_pos_neg_neg 	1.0
+T: 	inform_r2: 	agent_r0_human_r1_pos_neg_pos:	 agent_r0_human_r1_pos_neg_pos 	1.0
+T: 	inform_r2: 	agent_r0_human_r1_pos_pos_neg:	 agent_r0_human_r1_pos_pos_neg 	1.0
+T: 	inform_r2: 	agent_r0_human_r1_pos_pos_pos:	 agent_r0_human_r1_pos_pos_pos 	1.0
+T: 	inform_r2: 	agent_r0_human_r2_neg_neg_neg:	 agent_r0_human_r2_neg_neg_neg 	1.0
+T: 	inform_r2: 	agent_r0_human_r2_neg_neg_pos:	 agent_r0_human_r2_neg_neg_pos 	1.0
+T: 	inform_r2: 	agent_r0_human_r2_neg_pos_neg:	 agent_r0_human_r2_neg_pos_neg 	1.0
+T: 	inform_r2: 	agent_r0_human_r2_neg_pos_pos:	 agent_r0_human_r2_neg_pos_pos 	1.0
+T: 	inform_r2: 	agent_r0_human_r2_pos_neg_neg:	 agent_r0_human_r2_pos_neg_neg 	1.0
+T: 	inform_r2: 	agent_r0_human_r2_pos_neg_pos:	 agent_r0_human_r2_pos_neg_pos 	1.0
+T: 	inform_r2: 	agent_r0_human_r2_pos_pos_neg:	 agent_r0_human_r2_pos_pos_neg 	1.0
+T: 	inform_r2: 	agent_r0_human_r2_pos_pos_pos:	 agent_r0_human_r2_pos_pos_pos 	1.0
+T: 	inform_r2: 	agent_r1_human_r0_neg_neg_neg:	 agent_r1_human_r0_neg_neg_neg 	1.0
+T: 	inform_r2: 	agent_r1_human_r0_neg_neg_pos:	 agent_r1_human_r0_neg_neg_pos 	1.0
+T: 	inform_r2: 	agent_r1_human_r0_neg_pos_neg:	 agent_r1_human_r0_neg_pos_neg 	1.0
+T: 	inform_r2: 	agent_r1_human_r0_neg_pos_pos:	 agent_r1_human_r0_neg_pos_pos 	1.0
+T: 	inform_r2: 	agent_r1_human_r0_pos_neg_neg:	 agent_r1_human_r0_pos_neg_neg 	1.0
+T: 	inform_r2: 	agent_r1_human_r0_pos_neg_pos:	 agent_r1_human_r0_pos_neg_pos 	1.0
+T: 	inform_r2: 	agent_r1_human_r0_pos_pos_neg:	 agent_r1_human_r0_pos_pos_neg 	1.0
+T: 	inform_r2: 	agent_r1_human_r0_pos_pos_pos:	 agent_r1_human_r0_pos_pos_pos 	1.0
+T: 	inform_r2: 	agent_r1_human_r1_neg_neg_neg:	 agent_r1_human_r1_neg_neg_neg 	1.0
+T: 	inform_r2: 	agent_r1_human_r1_neg_neg_pos:	 agent_r1_human_r1_neg_neg_pos 	1.0
+T: 	inform_r2: 	agent_r1_human_r1_neg_pos_neg:	 agent_r1_human_r1_neg_pos_neg 	1.0
+T: 	inform_r2: 	agent_r1_human_r1_neg_pos_pos:	 agent_r1_human_r1_neg_pos_pos 	1.0
+T: 	inform_r2: 	agent_r1_human_r1_pos_neg_neg:	 agent_r1_human_r1_pos_neg_neg 	1.0
+T: 	inform_r2: 	agent_r1_human_r1_pos_neg_pos:	 agent_r1_human_r1_pos_neg_pos 	1.0
+T: 	inform_r2: 	agent_r1_human_r1_pos_pos_neg:	 agent_r1_human_r1_pos_pos_neg 	1.0
+T: 	inform_r2: 	agent_r1_human_r1_pos_pos_pos:	 agent_r1_human_r1_pos_pos_pos 	1.0
+T: 	inform_r2: 	agent_r1_human_r2_neg_neg_neg:	 agent_r1_human_r2_neg_neg_neg 	1.0
+T: 	inform_r2: 	agent_r1_human_r2_neg_neg_pos:	 agent_r1_human_r2_neg_neg_pos 	1.0
+T: 	inform_r2: 	agent_r1_human_r2_neg_pos_neg:	 agent_r1_human_r2_neg_pos_neg 	1.0
+T: 	inform_r2: 	agent_r1_human_r2_neg_pos_pos:	 agent_r1_human_r2_neg_pos_pos 	1.0
+T: 	inform_r2: 	agent_r1_human_r2_pos_neg_neg:	 agent_r1_human_r2_pos_neg_neg 	1.0
+T: 	inform_r2: 	agent_r1_human_r2_pos_neg_pos:	 agent_r1_human_r2_pos_neg_pos 	1.0
+T: 	inform_r2: 	agent_r1_human_r2_pos_pos_neg:	 agent_r1_human_r2_pos_pos_neg 	1.0
+T: 	inform_r2: 	agent_r1_human_r2_pos_pos_pos:	 agent_r1_human_r2_pos_pos_pos 	1.0
+T: 	inform_r2: 	agent_r2_human_r0_neg_neg_neg:	 agent_r2_human_r0_neg_neg_neg 	1.0
+T: 	inform_r2: 	agent_r2_human_r0_neg_neg_pos:	 agent_r2_human_r0_neg_neg_pos 	1.0
+T: 	inform_r2: 	agent_r2_human_r0_neg_pos_neg:	 agent_r2_human_r0_neg_pos_neg 	1.0
+T: 	inform_r2: 	agent_r2_human_r0_neg_pos_pos:	 agent_r2_human_r0_neg_pos_pos 	1.0
+T: 	inform_r2: 	agent_r2_human_r0_pos_neg_neg:	 agent_r2_human_r0_pos_neg_neg 	1.0
+T: 	inform_r2: 	agent_r2_human_r0_pos_neg_pos:	 agent_r2_human_r0_pos_neg_pos 	1.0
+T: 	inform_r2: 	agent_r2_human_r0_pos_pos_neg:	 agent_r2_human_r0_pos_pos_neg 	1.0
+T: 	inform_r2: 	agent_r2_human_r0_pos_pos_pos:	 agent_r2_human_r0_pos_pos_pos 	1.0
+T: 	inform_r2: 	agent_r2_human_r1_neg_neg_neg:	 agent_r2_human_r1_neg_neg_neg 	1.0
+T: 	inform_r2: 	agent_r2_human_r1_neg_neg_pos:	 agent_r2_human_r1_neg_neg_pos 	1.0
+T: 	inform_r2: 	agent_r2_human_r1_neg_pos_neg:	 agent_r2_human_r1_neg_pos_neg 	1.0
+T: 	inform_r2: 	agent_r2_human_r1_neg_pos_pos:	 agent_r2_human_r1_neg_pos_pos 	1.0
+T: 	inform_r2: 	agent_r2_human_r1_pos_neg_neg:	 agent_r2_human_r1_pos_neg_neg 	1.0
+T: 	inform_r2: 	agent_r2_human_r1_pos_neg_pos:	 agent_r2_human_r1_pos_neg_pos 	1.0
+T: 	inform_r2: 	agent_r2_human_r1_pos_pos_neg:	 agent_r2_human_r1_pos_pos_neg 	1.0
+T: 	inform_r2: 	agent_r2_human_r1_pos_pos_pos:	 agent_r2_human_r1_pos_pos_pos 	1.0
+T: 	inform_r2: 	agent_r2_human_r2_neg_neg_neg:	 agent_r2_human_r2_neg_neg_pos 	1.0
+T: 	inform_r2: 	agent_r2_human_r2_neg_neg_pos:	 agent_r2_human_r2_neg_neg_pos 	1.0
+T: 	inform_r2: 	agent_r2_human_r2_neg_pos_neg:	 agent_r2_human_r2_neg_pos_pos 	1.0
+T: 	inform_r2: 	agent_r2_human_r2_neg_pos_pos:	 agent_r2_human_r2_neg_pos_pos 	1.0
+T: 	inform_r2: 	agent_r2_human_r2_pos_neg_neg:	 agent_r2_human_r2_pos_neg_pos 	1.0
+T: 	inform_r2: 	agent_r2_human_r2_pos_neg_pos:	 agent_r2_human_r2_pos_neg_pos 	1.0
+T: 	inform_r2: 	agent_r2_human_r2_pos_pos_neg:	 agent_r2_human_r2_pos_pos_pos 	1.0
+T: 	inform_r2: 	agent_r2_human_r2_pos_pos_pos:	 agent_r2_human_r2_pos_pos_pos 	1.0
+T: 	ask_r0 	identity
+T: 	ask_r1 	identity
+T: 	ask_r2 	identity
+
+O: 	report: 	agent_r0_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	report: 	agent_r0_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	report: 	agent_r0_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	report: 	agent_r0_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	report: 	agent_r0_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	report: 	agent_r0_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	report: 	agent_r0_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	report: 	agent_r0_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	report: 	agent_r0_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	report: 	agent_r0_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	report: 	agent_r0_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	report: 	agent_r0_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	report: 	agent_r0_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	report: 	agent_r0_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	report: 	agent_r0_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	report: 	agent_r0_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	report: 	agent_r0_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	report: 	agent_r0_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	report: 	agent_r0_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	report: 	agent_r0_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	report: 	agent_r0_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	report: 	agent_r0_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	report: 	agent_r0_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	report: 	agent_r0_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	report: 	agent_r1_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	report: 	agent_r1_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	report: 	agent_r1_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	report: 	agent_r1_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	report: 	agent_r1_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	report: 	agent_r1_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	report: 	agent_r1_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	report: 	agent_r1_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	report: 	agent_r1_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	report: 	agent_r1_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	report: 	agent_r1_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	report: 	agent_r1_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	report: 	agent_r1_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	report: 	agent_r1_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	report: 	agent_r1_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	report: 	agent_r1_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	report: 	agent_r1_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	report: 	agent_r1_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	report: 	agent_r1_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	report: 	agent_r1_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	report: 	agent_r1_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	report: 	agent_r1_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	report: 	agent_r1_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	report: 	agent_r1_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	report: 	agent_r2_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	report: 	agent_r2_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	report: 	agent_r2_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	report: 	agent_r2_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	report: 	agent_r2_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	report: 	agent_r2_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	report: 	agent_r2_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	report: 	agent_r2_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	report: 	agent_r2_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	report: 	agent_r2_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	report: 	agent_r2_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	report: 	agent_r2_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	report: 	agent_r2_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	report: 	agent_r2_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	report: 	agent_r2_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	report: 	agent_r2_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	report: 	agent_r2_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	report: 	agent_r2_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	report: 	agent_r2_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	report: 	agent_r2_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	report: 	agent_r2_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	report: 	agent_r2_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	report: 	agent_r2_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	report: 	agent_r2_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r0_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r1_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	goto_r0: 	agent_r2_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r0_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r1_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	goto_r1: 	agent_r2_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r0_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r1_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	goto_r2: 	agent_r2_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r0_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r1_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	inform_r0: 	agent_r2_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r0_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r1_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	inform_r1: 	agent_r2_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r0_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r1_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	inform_r2: 	agent_r2_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r0_human_r0_neg_neg_neg: 	neg 	1.0
+O: 	ask_r0: 	agent_r0_human_r0_neg_neg_pos: 	neg 	1.0
+O: 	ask_r0: 	agent_r0_human_r0_neg_pos_neg: 	neg 	1.0
+O: 	ask_r0: 	agent_r0_human_r0_neg_pos_pos: 	neg 	1.0
+O: 	ask_r0: 	agent_r0_human_r0_pos_neg_neg: 	pos 	1.0
+O: 	ask_r0: 	agent_r0_human_r0_pos_neg_pos: 	pos 	1.0
+O: 	ask_r0: 	agent_r0_human_r0_pos_pos_neg: 	pos 	1.0
+O: 	ask_r0: 	agent_r0_human_r0_pos_pos_pos: 	pos 	1.0
+O: 	ask_r0: 	agent_r0_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r0_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r0_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r0_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r0_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r0_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r0_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r0_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r0_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r0_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r0_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r0_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r0_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r0_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r0_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r0_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r1_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	ask_r0: 	agent_r2_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r0_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r1_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r1_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r1_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r1_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r1_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r1_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r1_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r1_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r1_human_r1_neg_neg_neg: 	neg 	1.0
+O: 	ask_r1: 	agent_r1_human_r1_neg_neg_pos: 	neg 	1.0
+O: 	ask_r1: 	agent_r1_human_r1_neg_pos_neg: 	pos 	1.0
+O: 	ask_r1: 	agent_r1_human_r1_neg_pos_pos: 	pos 	1.0
+O: 	ask_r1: 	agent_r1_human_r1_pos_neg_neg: 	neg 	1.0
+O: 	ask_r1: 	agent_r1_human_r1_pos_neg_pos: 	neg 	1.0
+O: 	ask_r1: 	agent_r1_human_r1_pos_pos_neg: 	pos 	1.0
+O: 	ask_r1: 	agent_r1_human_r1_pos_pos_pos: 	pos 	1.0
+O: 	ask_r1: 	agent_r1_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r1_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r1_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r1_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r1_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r1_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r1_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r1_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	ask_r1: 	agent_r2_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r0_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r2_neg_neg_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r2_neg_neg_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r2_neg_pos_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r2_neg_pos_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r2_pos_neg_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r2_pos_neg_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r2_pos_pos_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r1_human_r2_pos_pos_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r2_human_r0_neg_neg_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r2_human_r0_neg_neg_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r2_human_r0_neg_pos_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r2_human_r0_neg_pos_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r2_human_r0_pos_neg_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r2_human_r0_pos_neg_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r2_human_r0_pos_pos_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r2_human_r0_pos_pos_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r2_human_r1_neg_neg_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r2_human_r1_neg_neg_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r2_human_r1_neg_pos_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r2_human_r1_neg_pos_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r2_human_r1_pos_neg_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r2_human_r1_pos_neg_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r2_human_r1_pos_pos_neg: 	nan 	1.0
+O: 	ask_r2: 	agent_r2_human_r1_pos_pos_pos: 	nan 	1.0
+O: 	ask_r2: 	agent_r2_human_r2_neg_neg_neg: 	neg 	1.0
+O: 	ask_r2: 	agent_r2_human_r2_neg_neg_pos: 	pos 	1.0
+O: 	ask_r2: 	agent_r2_human_r2_neg_pos_neg: 	neg 	1.0
+O: 	ask_r2: 	agent_r2_human_r2_neg_pos_pos: 	pos 	1.0
+O: 	ask_r2: 	agent_r2_human_r2_pos_neg_neg: 	neg 	1.0
+O: 	ask_r2: 	agent_r2_human_r2_pos_neg_pos: 	pos 	1.0
+O: 	ask_r2: 	agent_r2_human_r2_pos_pos_neg: 	neg 	1.0
+O: 	ask_r2: 	agent_r2_human_r2_pos_pos_pos: 	pos 	1.0
+
+R: 	report: 	agent_r0_human_r0_neg_neg_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r0_human_r0_neg_neg_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r0_human_r0_neg_pos_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r0_human_r0_neg_pos_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r0_human_r0_pos_neg_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r0_human_r0_pos_neg_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r0_human_r0_pos_pos_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r0_human_r0_pos_pos_pos: 	*: 	* 	1.0
+R: 	report: 	agent_r0_human_r1_neg_neg_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r0_human_r1_neg_neg_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r0_human_r1_neg_pos_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r0_human_r1_neg_pos_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r0_human_r1_pos_neg_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r0_human_r1_pos_neg_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r0_human_r1_pos_pos_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r0_human_r1_pos_pos_pos: 	*: 	* 	1.0
+R: 	report: 	agent_r0_human_r2_neg_neg_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r0_human_r2_neg_neg_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r0_human_r2_neg_pos_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r0_human_r2_neg_pos_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r0_human_r2_pos_neg_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r0_human_r2_pos_neg_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r0_human_r2_pos_pos_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r0_human_r2_pos_pos_pos: 	*: 	* 	1.0
+R: 	report: 	agent_r1_human_r0_neg_neg_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r1_human_r0_neg_neg_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r1_human_r0_neg_pos_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r1_human_r0_neg_pos_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r1_human_r0_pos_neg_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r1_human_r0_pos_neg_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r1_human_r0_pos_pos_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r1_human_r0_pos_pos_pos: 	*: 	* 	1.0
+R: 	report: 	agent_r1_human_r1_neg_neg_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r1_human_r1_neg_neg_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r1_human_r1_neg_pos_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r1_human_r1_neg_pos_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r1_human_r1_pos_neg_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r1_human_r1_pos_neg_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r1_human_r1_pos_pos_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r1_human_r1_pos_pos_pos: 	*: 	* 	1.0
+R: 	report: 	agent_r1_human_r2_neg_neg_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r1_human_r2_neg_neg_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r1_human_r2_neg_pos_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r1_human_r2_neg_pos_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r1_human_r2_pos_neg_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r1_human_r2_pos_neg_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r1_human_r2_pos_pos_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r1_human_r2_pos_pos_pos: 	*: 	* 	1.0
+R: 	report: 	agent_r2_human_r0_neg_neg_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r2_human_r0_neg_neg_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r2_human_r0_neg_pos_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r2_human_r0_neg_pos_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r2_human_r0_pos_neg_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r2_human_r0_pos_neg_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r2_human_r0_pos_pos_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r2_human_r0_pos_pos_pos: 	*: 	* 	1.0
+R: 	report: 	agent_r2_human_r1_neg_neg_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r2_human_r1_neg_neg_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r2_human_r1_neg_pos_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r2_human_r1_neg_pos_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r2_human_r1_pos_neg_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r2_human_r1_pos_neg_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r2_human_r1_pos_pos_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r2_human_r1_pos_pos_pos: 	*: 	* 	1.0
+R: 	report: 	agent_r2_human_r2_neg_neg_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r2_human_r2_neg_neg_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r2_human_r2_neg_pos_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r2_human_r2_neg_pos_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r2_human_r2_pos_neg_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r2_human_r2_pos_neg_pos: 	*: 	* 	-1.0
+R: 	report: 	agent_r2_human_r2_pos_pos_neg: 	*: 	* 	-1.0
+R: 	report: 	agent_r2_human_r2_pos_pos_pos: 	*: 	* 	1.0
+R: 	goto_r0: 	agent_r0_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r0_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r0_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r0_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r0_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r0_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r0_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r0_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r0_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r0_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r0_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r0_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r0_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r0_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r0_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r0_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r0_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r0_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r0_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r0_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r0_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r0_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r0_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r0_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r1_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r0: 	agent_r2_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r0_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r1_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r1: 	agent_r2_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r0_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r1_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	goto_r2: 	agent_r2_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r0_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r1_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r0: 	agent_r2_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r0_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r1_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r1: 	agent_r2_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r0_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r1_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	inform_r2: 	agent_r2_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r0_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r1_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r0: 	agent_r2_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r0_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r1_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r1: 	agent_r2_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r0_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r1_human_r2_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r0_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r0_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r0_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r0_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r0_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r0_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r0_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r0_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r1_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r1_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r1_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r1_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r1_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r1_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r1_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r1_pos_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r2_neg_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r2_neg_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r2_neg_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r2_neg_pos_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r2_pos_neg_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r2_pos_neg_pos: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r2_pos_pos_neg: 	*: 	* 	-0.01
+R: 	ask_r2: 	agent_r2_human_r2_pos_pos_pos: 	*: 	* 	-0.01
