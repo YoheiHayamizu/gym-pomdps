@@ -1,0 +1,207 @@
+discount : 0.99
+
+values: reward
+
+states: R0_neg_neg R0_neg_pos R0_pos_neg R0_pos_pos R1_neg_neg R1_neg_pos R1_pos_neg R1_pos_pos 
+
+actions: Report MoveToR0 MoveToR1 InformR0 InformR1 AskR0 AskR1 
+
+observations: nan neg pos  
+
+start include: R0_neg_neg R0_neg_pos R0_pos_neg R0_pos_pos R1_neg_neg R1_neg_pos R1_pos_neg R1_pos_pos
+
+T: Report : R0_neg_neg reset        # R0_neg_neg 
+T: Report : R0_neg_pos reset        # R0_neg_pos 
+T: Report : R0_pos_neg reset        # R0_pos_neg 
+T: Report : R0_pos_pos reset        # R0_pos_pos 
+T: Report : R1_neg_neg reset        # R1_neg_neg 
+T: Report : R1_neg_pos reset        # R1_neg_pos 
+T: Report : R1_pos_neg reset        # R1_pos_neg 
+T: Report : R1_pos_pos reset        # R1_pos_pos 
+
+T: MoveToR0
+1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0     # R0_neg_neg 
+0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0     # R0_neg_pos 
+0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0     # R0_pos_neg 
+0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0     # R0_pos_pos 
+1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0     # R1_neg_neg 
+0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0     # R1_neg_pos 
+0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0     # R1_pos_neg 
+0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0     # R1_pos_pos 
+
+T: MoveToR1
+0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0     # R0_neg_neg 
+0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0     # R0_neg_pos 
+0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0     # R0_pos_neg 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0     # R0_pos_pos 
+0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0     # R1_neg_neg 
+0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0     # R1_neg_pos 
+0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0     # R1_pos_neg 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0     # R1_pos_pos 
+
+T: InformR0
+0.1 0.0 0.9 0.0 0.0 0.0 0.0 0.0     # R0_neg_neg 
+0.0 0.1 0.0 0.9 0.0 0.0 0.0 0.0     # R0_neg_pos 
+0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0     # R0_pos_neg 
+0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0     # R0_pos_pos 
+0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0     # R1_neg_neg 
+0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0     # R1_neg_pos 
+0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0     # R1_pos_neg 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0     # R1_pos_pos 
+
+T: InformR1
+1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0     # R0_neg_neg 
+0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0     # R0_neg_pos 
+0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0     # R0_pos_neg 
+0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0     # R0_pos_pos 
+0.0 0.0 0.0 0.0 0.1 0.9 0.0 0.0     # R1_neg_neg 
+0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0     # R1_neg_pos 
+0.0 0.0 0.0 0.0 0.0 0.0 0.1 0.9     # R1_pos_neg 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0     # R1_pos_pos 
+
+T: AskR0
+1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0     # R0_neg_neg 
+0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0     # R0_neg_pos 
+0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0     # R0_pos_neg 
+0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0     # R0_pos_pos 
+0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0     # R1_neg_neg 
+0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0     # R1_neg_pos 
+0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0     # R1_pos_neg 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0     # R1_pos_pos 
+
+T: AskR1
+1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0     # R0_neg_neg 
+0.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0     # R0_neg_pos 
+0.0 0.0 1.0 0.0 0.0 0.0 0.0 0.0     # R0_pos_neg 
+0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0     # R0_pos_pos 
+0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0     # R1_neg_neg 
+0.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0     # R1_neg_pos 
+0.0 0.0 0.0 0.0 0.0 0.0 1.0 0.0     # R1_pos_neg 
+0.0 0.0 0.0 0.0 0.0 0.0 0.0 1.0     # R1_pos_pos 
+
+O: Report
+1.0 0.0 0.0                         # R0_neg_neg 
+1.0 0.0 0.0                         # R0_neg_pos 
+1.0 0.0 0.0                         # R0_pos_neg 
+1.0 0.0 0.0                         # R0_pos_pos 
+1.0 0.0 0.0                         # R1_neg_neg 
+1.0 0.0 0.0                         # R1_neg_pos 
+1.0 0.0 0.0                         # R1_pos_neg 
+1.0 0.0 0.0                         # R1_pos_pos 
+
+O: MoveToR0
+1.0 0.0 0.0                         # R0_neg_neg 
+1.0 0.0 0.0                         # R0_neg_pos 
+1.0 0.0 0.0                         # R0_pos_neg 
+1.0 0.0 0.0                         # R0_pos_pos 
+1.0 0.0 0.0                         # R1_neg_neg 
+1.0 0.0 0.0                         # R1_neg_pos 
+1.0 0.0 0.0                         # R1_pos_neg 
+1.0 0.0 0.0                         # R1_pos_pos 
+
+O: MoveToR1
+1.0 0.0 0.0                         # R0_neg_neg 
+1.0 0.0 0.0                         # R0_neg_pos 
+1.0 0.0 0.0                         # R0_pos_neg 
+1.0 0.0 0.0                         # R0_pos_pos 
+1.0 0.0 0.0                         # R1_neg_neg 
+1.0 0.0 0.0                         # R1_neg_pos 
+1.0 0.0 0.0                         # R1_pos_neg 
+1.0 0.0 0.0                         # R1_pos_pos 
+
+O: InformR0
+1.0 0.0 0.0                         # R0_neg_neg 
+1.0 0.0 0.0                         # R0_neg_pos 
+1.0 0.0 0.0                         # R0_pos_neg 
+1.0 0.0 0.0                         # R0_pos_pos 
+1.0 0.0 0.0                         # R1_neg_neg 
+1.0 0.0 0.0                         # R1_neg_pos 
+1.0 0.0 0.0                         # R1_pos_neg 
+1.0 0.0 0.0                         # R1_pos_pos 
+
+O: InformR1
+1.0 0.0 0.0                         # R0_neg_neg 
+1.0 0.0 0.0                         # R0_neg_pos 
+1.0 0.0 0.0                         # R0_pos_neg 
+1.0 0.0 0.0                         # R0_pos_pos 
+1.0 0.0 0.0                         # R1_neg_neg 
+1.0 0.0 0.0                         # R1_neg_pos 
+1.0 0.0 0.0                         # R1_pos_neg 
+1.0 0.0 0.0                         # R1_pos_pos 
+
+O: AskR0
+0.0 0.9 0.1                         # R0_neg_neg 
+0.0 0.9 0.1                         # R0_neg_pos 
+0.0 0.1 0.9                         # R0_pos_neg 
+0.0 0.1 0.9                         # R0_pos_pos 
+0.0 0.9 0.1                         # R1_neg_neg 
+0.0 0.9 0.1                         # R1_neg_pos 
+0.0 0.1 0.9                         # R1_pos_neg 
+0.0 0.1 0.9                         # R1_pos_pos 
+
+O: AskR1
+0.0 0.9 0.1                         # R0_neg_neg 
+0.0 0.1 0.9                         # R0_neg_pos 
+0.0 0.9 0.1                         # R0_pos_neg 
+0.0 0.1 0.9                         # R0_pos_pos 
+0.0 0.9 0.1                         # R1_neg_neg 
+0.0 0.1 0.9                         # R1_neg_pos 
+0.0 0.9 0.1                         # R1_pos_neg 
+0.0 0.1 0.9                         # R1_pos_pos 
+
+R: MoveToR0		: R0_neg_neg	: *		: * -0.01
+R: MoveToR0		: R0_neg_pos	: *		: * -0.01
+R: MoveToR0		: R0_pos_neg	: *		: * -0.01
+R: MoveToR0		: R0_pos_pos	: *		: * -0.01
+R: MoveToR0		: R1_neg_neg	: *		: * -0.01
+R: MoveToR0		: R1_neg_pos	: *		: * -0.01
+R: MoveToR0		: R1_pos_neg	: *		: * -0.01
+R: MoveToR0		: R1_pos_pos	: *		: * -0.01
+R: MoveToR1		: R0_neg_neg	: *		: * -0.01
+R: MoveToR1		: R0_neg_pos	: *		: * -0.01
+R: MoveToR1		: R0_pos_neg	: *		: * -0.01
+R: MoveToR1		: R0_pos_pos	: *		: * -0.01
+R: MoveToR1		: R1_neg_neg	: *		: * -0.01
+R: MoveToR1		: R1_neg_pos	: *		: * -0.01
+R: MoveToR1		: R1_pos_neg	: *		: * -0.01
+R: MoveToR1		: R1_pos_pos	: *		: * -0.01
+R: InformR0		: R0_neg_neg	: *		: * -0.01
+R: InformR0		: R0_neg_pos	: *		: * -0.01
+R: InformR0		: R0_pos_neg	: *		: * -0.01
+R: InformR0		: R0_pos_pos	: *		: * -0.01
+R: InformR0		: R1_neg_neg	: *		: * -0.01
+R: InformR0		: R1_neg_pos	: *		: * -0.01
+R: InformR0		: R1_pos_neg	: *		: * -0.01
+R: InformR0		: R1_pos_pos	: *		: * -0.01
+R: InformR1		: R0_neg_neg	: *		: * -0.01
+R: InformR1		: R0_neg_pos	: *		: * -0.01
+R: InformR1		: R0_pos_neg	: *		: * -0.01
+R: InformR1		: R0_pos_pos	: *		: * -0.01
+R: InformR1		: R1_neg_neg	: *		: * -0.01
+R: InformR1		: R1_neg_pos	: *		: * -0.01
+R: InformR1		: R1_pos_neg	: *		: * -0.01
+R: InformR1		: R1_pos_pos	: *		: * -0.01
+R: AskR0		: R0_neg_neg	: *		: * -0.01
+R: AskR0		: R0_neg_pos	: *		: * -0.01
+R: AskR0		: R0_pos_neg	: *		: * -0.01
+R: AskR0		: R0_pos_pos	: *		: * -0.01
+R: AskR0		: R1_neg_neg	: *		: * -0.01
+R: AskR0		: R1_neg_pos	: *		: * -0.01
+R: AskR0		: R1_pos_neg	: *		: * -0.01
+R: AskR0		: R1_pos_pos	: *		: * -0.01
+R: AskR1		: R0_neg_neg	: *		: * -0.01
+R: AskR1		: R0_neg_pos	: *		: * -0.01
+R: AskR1		: R0_pos_neg	: *		: * -0.01
+R: AskR1		: R0_pos_pos	: *		: * -0.01
+R: AskR1		: R1_neg_neg	: *		: * -0.01
+R: AskR1		: R1_neg_pos	: *		: * -0.01
+R: AskR1		: R1_pos_neg	: *		: * -0.01
+R: AskR1		: R1_pos_pos	: *		: * -0.01
+R: Report		: R0_neg_neg	: *		: * -1.0
+R: Report		: R0_neg_pos	: *		: * -1.0
+R: Report		: R0_pos_neg	: *		: * -1.0
+R: Report		: R0_pos_pos	: *		: * 1.0
+R: Report		: R1_neg_neg	: *		: * -1.0
+R: Report		: R1_neg_pos	: *		: * -1.0
+R: Report		: R1_pos_neg	: *		: * -1.0
+R: Report		: R1_pos_pos	: *		: * 1.0
